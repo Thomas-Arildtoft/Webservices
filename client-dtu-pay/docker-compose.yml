@@ -1,5 +1,0 @@
-version: '3'
-services:
-  client-dtu-pay:
-    image: client-dtu-pay
-    build: .

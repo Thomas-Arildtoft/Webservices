@@ -1,0 +1,6 @@
+version: '3'
+services:
+  token-management:
+    image: token-management
+    build: .
+ 
