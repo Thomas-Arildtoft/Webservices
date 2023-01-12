@@ -1,4 +1,4 @@
-package dk.dtu.pay.utils.dtos;
+package dk.dtu.pay.utils.models;
 
 public enum Role {
     CUSTOMER,

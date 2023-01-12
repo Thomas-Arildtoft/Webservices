@@ -5,8 +5,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import dk.dtu.pay.utils.dtos.Role;
-import dk.dtu.pay.utils.dtos.User;
+import dk.dtu.pay.utils.models.Role;
+import dk.dtu.pay.utils.models.User;
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
 

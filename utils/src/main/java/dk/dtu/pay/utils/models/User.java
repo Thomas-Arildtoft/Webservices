@@ -1,4 +1,4 @@
-package dk.dtu.pay.utils.dtos;
+package dk.dtu.pay.utils.models;
 
 import jakarta.xml.bind.annotation.XmlRootElement;
 import lombok.AllArgsConstructor;
