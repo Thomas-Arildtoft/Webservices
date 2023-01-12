@@ -1,1 +1,0 @@
-Place for common structures and logic

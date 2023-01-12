@@ -127,6 +127,11 @@
             <artifactId>jakarta.jakartaee-api</artifactId>
             <version>10.0.0</version>
         </dependency>
+        <dependency>
+            <groupId>dk.dtu.pay</groupId>
+            <artifactId>utils</artifactId>
+            <version>1.0.0</version>
+        </dependency>
     </dependencies>
 
     <build>
