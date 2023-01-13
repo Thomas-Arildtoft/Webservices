@@ -7,6 +7,6 @@ import java.util.function.Consumer;
 public interface MessageQueue {
 
     void publish(String queueName, Event message);
-    Channel addHandler(String eventType, Consumer<Event> handler);
+    Channel addHandler(String queueName, Consumer<Event> handler);
 
 }

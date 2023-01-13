@@ -9,7 +9,8 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
-import java.util.*;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.function.Consumer;
 
 import static org.junit.Assert.assertEquals;
