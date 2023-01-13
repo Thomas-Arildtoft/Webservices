@@ -20,15 +20,16 @@ public class Service {
 
     public Service(MessageQueue messageQueue) {
         this.messageQueue = messageQueue;
-        addCustomerSubscriber();
+        addRegisterSubscriber(QueueNames.REGISTER_CUSTOMER_REQUESTED, QueueNames.REGISTER_CUSTOMER_RETURNED, Role.CUSTOMER);
+        addRegisterSubscriber(QueueNames.REGISTER_MERCHANT_REQUESTED, QueueNames.REGISTER_MERCHANT_RETURNED, Role.MERCHANT);
     }
 
-    private void addCustomerSubscriber() {
-        messageQueue.addHandler(QueueNames.REGISTER_CUSTOMER_REQUESTED,
+    private void addRegisterSubscriber(String subscribeQueue, String publishQueue, Role role) {
+        messageQueue.addHandler(subscribeQueue,
             (event) -> {
                 AccountId accountId = event.getArgument(0, AccountId.class);
-                User user = registerUser(accountId, Role.CUSTOMER);
-                messageQueue.publish(QueueNames.REGISTER_CUSTOMER_RETURNED, new Event(new Object[]{user}));
+                User user = registerUser(accountId, role);
+                messageQueue.publish(publishQueue, new Event(new Object[]{user}));
             });
     }
 
