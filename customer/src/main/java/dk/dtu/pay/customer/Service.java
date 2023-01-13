@@ -8,16 +8,18 @@ import dk.dtu.pay.utils.models.AccountId;
 import dk.dtu.pay.utils.models.User;
 
 import com.rabbitmq.client.Channel;
+import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 
+@RequiredArgsConstructor
 public class Service {
 
     private static final long QUEUE_TIMEOUT = 1; //seconds
 
-    private MessageQueue messageQueue = RabbitMQQueue.getInstance();
+    private final MessageQueue messageQueue;
     private User user = null;
 
     public User register(AccountId accountId) {
@@ -37,7 +39,8 @@ public class Service {
                     completableFuture.completeOnTimeout(event.getArgument(0, User.class), QUEUE_TIMEOUT, TimeUnit.SECONDS);
                 });
         user = completableFuture.join();
-        channel.close();
+        if (channel != null )
+            channel.close();
         return user;
     }
 }

@@ -1,5 +1,6 @@
 package dk.dtu.pay.customer;
 
+import dk.dtu.pay.utils.messaging.RabbitMQQueue;
 import dk.dtu.pay.utils.models.AccountId;
 import dk.dtu.pay.utils.models.User;
 
@@ -12,7 +13,7 @@ import javax.ws.rs.core.Response;
 
 @Path("/customers")
 public class Resource {
-    private Service service = new Service();
+    private final Service service = new Service(RabbitMQQueue.getInstance());
 
     @POST
     @Path("/register")
