@@ -25,6 +25,10 @@ public class RabbitMQQueue implements MessageQueue {
         this.hostname = hostname;
     }
 
+    public static MessageQueue getInstance() {
+        return new RabbitMQQueue("rabbitMq");
+    }
+
     @SneakyThrows
     @Override
     public void publish(String queueName, Event event) {
@@ -38,7 +42,7 @@ public class RabbitMQQueue implements MessageQueue {
 
     @SneakyThrows
     @Override
-    public void addHandler(String queueName, Consumer<Event> handler) {
+    public Channel addHandler(String queueName, Consumer<Event> handler) {
         Connection connection = getConnection();
         Channel channel = connection.createChannel();
         channel.queueDeclare(queueName, false, false, false, null);
@@ -49,6 +53,7 @@ public class RabbitMQQueue implements MessageQueue {
         };
         channel.basicConsume(queueName, true, deliverCallback, consumerTag -> {
         });
+        return channel;
     }
 
     @SneakyThrows
