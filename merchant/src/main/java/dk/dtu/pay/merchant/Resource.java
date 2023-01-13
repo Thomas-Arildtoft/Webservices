@@ -2,6 +2,7 @@ package dk.dtu.pay.merchant;
 
 import dk.dtu.pay.utils.messaging.RabbitMQQueue;
 import dk.dtu.pay.utils.models.AccountId;
+import dk.dtu.pay.utils.models.InitiatePaymentDTO;
 import dk.dtu.pay.utils.models.User;
 
 import javax.ws.rs.Consumes;
@@ -19,7 +20,7 @@ public class Resource {
     @Path("/register")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response pay(AccountId accountId) {
+    public Response register(AccountId accountId) {
         try {
             User user = service.register(accountId);
             return Response.ok().entity(user).build();
@@ -28,7 +29,17 @@ public class Resource {
         }
     }
 
-    // @Path("/payments")
-    // GET getAll() - get all customer's payments from DTU Pay
+    @POST
+    @Path("/initiate-payment")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response initiatePayment(InitiatePaymentDTO initiatePaymentDTO) {
+        try {
+            String message = service.initiatePayment(initiatePaymentDTO);
+            return Response.ok().entity(message).build();
+        } catch (Exception e) {
+            return Response.status(404).entity("Payment failed").build();
+        }
+    }
 
 }

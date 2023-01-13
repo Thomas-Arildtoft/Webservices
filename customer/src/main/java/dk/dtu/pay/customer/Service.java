@@ -65,7 +65,7 @@ public class Service {
         if (channel != null)
             channel.close();
         if (tokens == null)
-            throw new RuntimeException("Registration Failed");
+            throw new RuntimeException("Token retrieving failed");
         return tokens;
     }
 
