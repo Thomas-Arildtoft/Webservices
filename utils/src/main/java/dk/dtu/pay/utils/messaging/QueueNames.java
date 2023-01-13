@@ -19,8 +19,8 @@ public class QueueNames {
     public static final String TOKENS_RETURNED = "TokensReturned";
 
     // Payment management --- > Token management
-    public static final String ACCOUNT_FROM_TOKEN_REQUESTED = "AccountFromTokenRequested";
-    public static final String ACCOUNT_FROM_TOKEN_RETURNED = "AccountFromTokenReturned";
+    public static final String USER_REQUESTED = "UserRequested";
+    public static final String USER_RETURNED = "UserReturned";
 
     // TODO: need to be added in Miro
     // Payment management --- > Account management

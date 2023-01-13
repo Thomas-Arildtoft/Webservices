@@ -20,6 +20,7 @@ public class Service {
     public Service(MessageQueue messageQueue) {
         this.messageQueue = messageQueue;
         addTokenRequestedSubscriber();
+        addAccountFromTokenRequestedSubscriber();
     }
 
     public void addTokenRequestedSubscriber() {
@@ -33,6 +34,15 @@ public class Service {
                         messageQueue.publish(QueueNames.TM_ACCOUNT_REQUESTED, new Event(new Object[]{tokenRequest.getUser()}));
                         addGetAccountSubscriber(tokenRequest.getUser());
                     }
+                });
+    }
+
+    public void addAccountFromTokenRequestedSubscriber() {
+        messageQueue.addHandler(QueueNames.USER_REQUESTED,
+                (event) -> {
+                    String token = event.getArgument(0, String.class);
+                    User user = repository.findUserAndRemoveToken(token);
+                    messageQueue.publish(QueueNames.USER_RETURNED, new Event(new Object[]{ user }));
                 });
     }
 

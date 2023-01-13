@@ -14,4 +14,16 @@ public class Repository {
         userTokens.put(user, tokens);
     }
 
+    public User findUserAndRemoveToken(String token) {
+        for (var entry : userTokens.entrySet()) {
+            User user = entry.getKey();
+            List<String> tokens = entry.getValue();
+            if (tokens.contains(token)) {
+                tokens.remove(token);
+                return user;
+            }
+        }
+        return null;
+    }
+
 }
