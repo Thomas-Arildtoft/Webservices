@@ -4,6 +4,7 @@ import com.rabbitmq.client.Channel;
 import dk.dtu.pay.utils.messaging.Event;
 import dk.dtu.pay.utils.messaging.MessageQueue;
 import dk.dtu.pay.utils.models.AccountId;
+import dk.dtu.pay.utils.models.Role;
 import dk.dtu.pay.utils.models.User;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -14,6 +15,7 @@ import java.util.Queue;
 import java.util.function.Consumer;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 public class CustomerSteps {
 
@@ -28,13 +30,14 @@ public class CustomerSteps {
         accountId = aId;
     }
 
-    @When(": Register merchant at DTU Pay")
+    @When(": Register customer at DTU Pay")
     public void registerMerchantAtDTUPay() {
         user = service.register(new AccountId(accountId));
     }
 
     @Then(": User with role Customer and bank account id {word} is returned")
     public void userWithRoleCustomerAndBankAccountIdIsReturned(String accountId) {
+        assertNotNull(user);
         assertEquals(accountId, user.getId());
     }
 

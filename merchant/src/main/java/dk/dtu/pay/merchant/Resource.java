@@ -1,26 +1,34 @@
 package dk.dtu.pay.merchant;
 
-import javax.ws.rs.GET;
+import dk.dtu.pay.utils.messaging.RabbitMQQueue;
+import dk.dtu.pay.utils.models.AccountId;
+import dk.dtu.pay.utils.models.User;
+
+import javax.ws.rs.Consumes;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 @Path("/merchants")
 public class Resource {
+    private final Service service = new Service(RabbitMQQueue.getInstance());
 
-    @GET
+    @POST
+    @Path("/register")
+    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public String getMessage() {
-        return "works works";
+    public Response pay(AccountId accountId) {
+        try {
+            User user = service.register(accountId);
+            return Response.ok().entity(user).build();
+        } catch (Exception e) {
+            return Response.status(404).entity("Registration failed").build();
+        }
     }
 
     // @Path("/payments")
-    // POST initiatePayment(amount) - initiates payment from customer to merchant
-
-    // @Path("/registration")
-    // POST register(accountId) - registers merchant at DTU Pay (account is manually created and its id is passed here)
-
-    // @Path("/payments")
-    // GET getAll() - get all merchant's payments from DTU Pay
+    // GET getAll() - get all customer's payments from DTU Pay
 
 }
