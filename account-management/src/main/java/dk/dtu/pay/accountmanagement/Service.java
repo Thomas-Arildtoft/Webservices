@@ -22,6 +22,8 @@ public class Service {
         this.messageQueue = messageQueue;
         addRegisterSubscriber(QueueNames.REGISTER_CUSTOMER_REQUESTED, QueueNames.REGISTER_CUSTOMER_RETURNED, Role.CUSTOMER);
         addRegisterSubscriber(QueueNames.REGISTER_MERCHANT_REQUESTED, QueueNames.REGISTER_MERCHANT_RETURNED, Role.MERCHANT);
+        addGetAccountSubscriber(QueueNames.TM_ACCOUNT_REQUESTED, QueueNames.TM_ACCOUNT_RETURNED);
+        addGetAccountSubscriber(QueueNames.PM_ACCOUNT_REQUESTED, QueueNames.PM_ACCOUNT_RETURNED);
     }
 
     private void addRegisterSubscriber(String subscribeQueue, String publishQueue, Role role) {
@@ -31,6 +33,15 @@ public class Service {
                 User user = registerUser(accountId, role);
                 messageQueue.publish(publishQueue, new Event(new Object[]{user}));
             });
+    }
+
+    private void addGetAccountSubscriber(String subscribeQueue, String publishQueue) {
+        messageQueue.addHandler(subscribeQueue,
+                (event) -> {
+                    User user = event.getArgument(0, User.class);
+                    AccountId accountId = repository.getAccountId(user);
+                    messageQueue.publish(publishQueue, new Event(new Object[]{ accountId }));
+                });
     }
 
     private User registerUser(AccountId accountId, Role role) {
