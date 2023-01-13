@@ -17,8 +17,6 @@ import java.util.function.Consumer;
 @RequiredArgsConstructor
 public class Service {
 
-    private static final long QUEUE_TIMEOUT = 1; //seconds
-
     private final MessageQueue messageQueue;
     private User user = null;
 
@@ -70,11 +68,13 @@ public class Service {
     }
 
     private Consumer<Event> getAccountRegisteredConsumer(CompletableFuture<User> completableFuture) {
-        return (event) -> completableFuture.completeOnTimeout(event.getArgument(0, User.class), QUEUE_TIMEOUT, TimeUnit.SECONDS);
+        return (event) -> completableFuture.complete(event.getArgument(0, User.class));
     }
 
     private Consumer<Event> getPaymentInitiatedConsumer(CompletableFuture<String> completableFuture) {
-        return (event) -> completableFuture.completeOnTimeout(event.getArgument(0, String.class), QUEUE_TIMEOUT, TimeUnit.SECONDS);
+        return (event) -> {
+            completableFuture.complete(event.getArgument(0, String.class));
+        };
     }
 
 }
