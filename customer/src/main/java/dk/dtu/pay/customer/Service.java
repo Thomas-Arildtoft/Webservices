@@ -31,6 +31,12 @@ public class Service {
         return consumerTokenRequested();
     }
 
+    public void clean() {
+        user = null;
+        messageQueue.publish(QueueNames.CLEAN_ACCOUNT_MANAGEMENT_REQUESTED, new Event(null));
+        messageQueue.publish(QueueNames.CLEAN_TOKEN_MANAGEMENT_REQUESTED, new Event(null));
+    }
+
     private void publishAccountIdToRegister(AccountId accountId) {
         messageQueue.publish(QueueNames.REGISTER_CUSTOMER_REQUESTED, new Event(new Object[]{ accountId }));
     }

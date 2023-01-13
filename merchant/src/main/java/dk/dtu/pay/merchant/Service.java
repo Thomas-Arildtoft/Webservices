@@ -7,6 +7,7 @@ import dk.dtu.pay.utils.messaging.QueueNames;
 import dk.dtu.pay.utils.models.AccountId;
 import dk.dtu.pay.utils.models.InitiatePaymentDTO;
 import dk.dtu.pay.utils.models.User;
+import io.cucumber.java.an.E;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 
@@ -28,6 +29,12 @@ public class Service {
     public String initiatePayment(InitiatePaymentDTO initiatePaymentDTO) {
         publishInitiatePayment(initiatePaymentDTO);
         return consumeInitiatePayment();
+    }
+
+    public void clean() {
+        user = null;
+        messageQueue.publish(QueueNames.CLEAN_ACCOUNT_MANAGEMENT_REQUESTED, new Event(null));
+        messageQueue.publish(QueueNames.CLEAN_TOKEN_MANAGEMENT_REQUESTED, new Event(null));
     }
 
     private void publishAccountIdToRegister(AccountId accountId) {

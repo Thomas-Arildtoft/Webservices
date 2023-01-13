@@ -36,7 +36,9 @@ public class Resource {
         }
     }
 
-    // @Path("/payments")
-    // GET getAll() - get all customer's payments from DTU Pay
+    @DELETE
+    public void clean() {
+        service.clean();
+    }
 
 }

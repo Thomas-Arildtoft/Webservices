@@ -19,8 +19,16 @@ public class Service {
 
     public Service(MessageQueue messageQueue) {
         this.messageQueue = messageQueue;
+        subscribeCleanAccountManagementRequest();
         addTokenRequestedSubscriber();
         addAccountFromTokenRequestedSubscriber();
+    }
+
+    private void subscribeCleanAccountManagementRequest() {
+        messageQueue.addHandler(QueueNames.CLEAN_TOKEN_MANAGEMENT_REQUESTED,
+                (event) -> {
+                    repository = new Repository();
+                });
     }
 
     public void addTokenRequestedSubscriber() {

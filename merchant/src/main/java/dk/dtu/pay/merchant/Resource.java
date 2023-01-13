@@ -5,10 +5,7 @@ import dk.dtu.pay.utils.models.AccountId;
 import dk.dtu.pay.utils.models.InitiatePaymentDTO;
 import dk.dtu.pay.utils.models.User;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -42,4 +39,8 @@ public class Resource {
         }
     }
 
+    @DELETE
+    public void clean() {
+        service.clean();
+    }
 }

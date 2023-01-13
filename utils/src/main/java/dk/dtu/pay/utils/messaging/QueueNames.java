@@ -31,4 +31,8 @@ public class QueueNames {
     public static final String TM_ACCOUNT_REQUESTED = "TMAccountRequested";
     public static final String TM_ACCOUNT_RETURNED = "TMAccountReturned";
 
+    // Utility queues - they are not part of the architecture, just for test purposes
+    public static final String CLEAN_ACCOUNT_MANAGEMENT_REQUESTED = "TMAccountRequested";
+    public static final String CLEAN_TOKEN_MANAGEMENT_REQUESTED = "TMAccountRequested";
+
 }
