@@ -16,7 +16,7 @@ public class Resource {
     @Path("/register")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response pay(AccountId accountId) {
+    public Response register(AccountId accountId) {
         try {
             User user = service.register(accountId);
             return Response.ok().entity(user).build();

@@ -21,10 +21,6 @@ public class Repository {
         return users.get(user);
     }
 
-    public User getUser(AccountId accountId) {
-        return getUsers(accountId).get(0);
-    }
-
     public boolean accountIsRegistered(AccountId accountId) {
         return getUsers(accountId).size() == 1;
     }

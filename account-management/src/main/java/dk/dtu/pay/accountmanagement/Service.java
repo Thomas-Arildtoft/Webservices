@@ -20,20 +20,20 @@ public class Service {
 
     public Service(MessageQueue messageQueue) {
         this.messageQueue = messageQueue;
-        subscribeCleanAccountManagementRequest();
-        addRegisterSubscriber(QueueNames.REGISTER_CUSTOMER_REQUESTED, QueueNames.REGISTER_CUSTOMER_RETURNED, Role.CUSTOMER);
-        addRegisterSubscriber(QueueNames.REGISTER_MERCHANT_REQUESTED, QueueNames.REGISTER_MERCHANT_RETURNED, Role.MERCHANT);
-        addGetAccountSubscriber(QueueNames.PAYMENT_MANAGEMENT_ACCOUNT_REQUESTED, QueueNames.PAYMENT_MANAGEMENT_ACCOUNT_RETURNED);
+        addCleanAccountManagementRequestedSubscriber();
+        addRegisterRequestedSubscriber(QueueNames.REGISTER_CUSTOMER_REQUESTED, QueueNames.REGISTER_CUSTOMER_RETURNED, Role.CUSTOMER);
+        addRegisterRequestedSubscriber(QueueNames.REGISTER_MERCHANT_REQUESTED, QueueNames.REGISTER_MERCHANT_RETURNED, Role.MERCHANT);
+        addAccountRequestedSubscriber();
     }
 
-    private void subscribeCleanAccountManagementRequest() {
+    private void addCleanAccountManagementRequestedSubscriber() {
         messageQueue.addHandler(QueueNames.CLEAN_ACCOUNT_MANAGEMENT_REQUESTED,
                 (event) -> {
                     repository = new Repository();
                 });
     }
 
-    private void addRegisterSubscriber(String subscribeQueue, String publishQueue, Role role) {
+    private void addRegisterRequestedSubscriber(String subscribeQueue, String publishQueue, Role role) {
         messageQueue.addHandler(subscribeQueue,
             (event) -> {
                 AccountId accountId = event.getArgument(0, AccountId.class);
@@ -42,12 +42,12 @@ public class Service {
             });
     }
 
-    private void addGetAccountSubscriber(String subscribeQueue, String publishQueue) {
-        messageQueue.addHandler(subscribeQueue,
+    private void addAccountRequestedSubscriber() {
+        messageQueue.addHandler(QueueNames.ACCOUNT_REQUESTED,
                 (event) -> {
                     User user = event.getArgument(0, User.class);
                     AccountId accountId = repository.getAccountId(user);
-                    messageQueue.publish(publishQueue, new Event(new Object[]{ accountId }));
+                    messageQueue.publish(QueueNames.ACCOUNT_RETURNED, new Event(new Object[]{ accountId }));
                 });
     }
 

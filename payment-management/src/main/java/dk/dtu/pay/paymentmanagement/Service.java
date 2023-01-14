@@ -22,33 +22,33 @@ public class Service {
 
     public Service(MessageQueue messageQueue) {
         this.messageQueue = messageQueue;
-        subscribePaymentInitiate();
+        addInitiatePaymentRequestedSubscriber();
     }
 
-    private void subscribePaymentInitiate() {
+    private void addInitiatePaymentRequestedSubscriber() {
         messageQueue.addHandler(QueueNames.INITIATE_PAYMENT_REQUESTED,
                 (event) -> {
                     InitiatePaymentDTO initiatePaymentDTO = event.getArgument(0, InitiatePaymentDTO.class);
-                    getMerchantAccountId(initiatePaymentDTO);
+                    requestMerchantAccountId(initiatePaymentDTO);
                 });
     }
 
     @SneakyThrows
-    private void getMerchantAccountId(InitiatePaymentDTO initiatePaymentDTO) {
-        messageQueue.publish(QueueNames.PAYMENT_MANAGEMENT_ACCOUNT_REQUESTED, new Event(new Object[]{initiatePaymentDTO.getMerchantUser()}));
+    private void requestMerchantAccountId(InitiatePaymentDTO initiatePaymentDTO) {
+        messageQueue.publish(QueueNames.ACCOUNT_REQUESTED, new Event(new Object[]{initiatePaymentDTO.getMerchantUser()}));
         CompletableFuture<AccountId> merchantAccountIdFuture = new CompletableFuture<>();
-        Channel channel = messageQueue.addHandler(QueueNames.PAYMENT_MANAGEMENT_ACCOUNT_RETURNED,
+        Channel channel = messageQueue.addHandler(QueueNames.ACCOUNT_RETURNED,
                 (event) -> {
                     merchantAccountIdFuture.complete(event.getArgument(0, AccountId.class));
                 });
         AccountId merchantAccountId = merchantAccountIdFuture.join();
         if (channel != null)
             channel.close();
-        getCustomerUser(initiatePaymentDTO, merchantAccountId);
+        requestCustomerUser(initiatePaymentDTO, merchantAccountId);
     }
 
     @SneakyThrows
-    private void getCustomerUser(InitiatePaymentDTO initiatePaymentDTO, AccountId merchantAccountId) {
+    private void requestCustomerUser(InitiatePaymentDTO initiatePaymentDTO, AccountId merchantAccountId) {
         messageQueue.publish(QueueNames.USER_FROM_TOKEN_REQUESTED, new Event(new Object[]{initiatePaymentDTO.getCustomerToken()}));
         CompletableFuture<User> customerUserFuture = new CompletableFuture<>();
         Channel channel = messageQueue.addHandler(QueueNames.USER_FROM_TOKEN_RETURNED,
@@ -58,14 +58,14 @@ public class Service {
         User customerUser = customerUserFuture.join();
         if (channel != null)
             channel.close();
-        getCustomerAccountId(initiatePaymentDTO, merchantAccountId, customerUser);
+        requestCustomerAccountId(initiatePaymentDTO, merchantAccountId, customerUser);
     }
 
     @SneakyThrows
-    private void getCustomerAccountId(InitiatePaymentDTO initiatePaymentDTO, AccountId merchantAccountId, User customerUser) {
-        messageQueue.publish(QueueNames.PAYMENT_MANAGEMENT_ACCOUNT_REQUESTED, new Event(new Object[]{customerUser}));
+    private void requestCustomerAccountId(InitiatePaymentDTO initiatePaymentDTO, AccountId merchantAccountId, User customerUser) {
+        messageQueue.publish(QueueNames.ACCOUNT_REQUESTED, new Event(new Object[]{customerUser}));
         CompletableFuture<AccountId> customerAccountIdFuture = new CompletableFuture<>();
-        Channel channel = messageQueue.addHandler(QueueNames.PAYMENT_MANAGEMENT_ACCOUNT_RETURNED,
+        Channel channel = messageQueue.addHandler(QueueNames.ACCOUNT_RETURNED,
                 (event) -> {
                     customerAccountIdFuture.complete(event.getArgument(0, AccountId.class));
                 });

@@ -7,12 +7,10 @@ import dk.dtu.pay.utils.messaging.QueueNames;
 import dk.dtu.pay.utils.models.AccountId;
 import dk.dtu.pay.utils.models.InitiatePaymentDTO;
 import dk.dtu.pay.utils.models.User;
-import io.cucumber.java.an.E;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 
 @RequiredArgsConstructor
@@ -22,13 +20,13 @@ public class Service {
     private User user = null;
 
     public User register(AccountId accountId) {
-        publishAccountIdToRegister(accountId);
-        return consumeRegisteredUser();
+        publishRegisterCustomerRequested(accountId);
+        return addRegisterCustomerReturnedSubscriber();
     }
 
     public String initiatePayment(InitiatePaymentDTO initiatePaymentDTO) {
-        publishInitiatePayment(initiatePaymentDTO);
-        return consumeInitiatePayment();
+        publishInitiatePaymentRequest(initiatePaymentDTO);
+        return addInitiatePaymentReturnedSubscriber();
     }
 
     public void clean() {
@@ -37,12 +35,12 @@ public class Service {
         messageQueue.publish(QueueNames.CLEAN_TOKEN_MANAGEMENT_REQUESTED, new Event(null));
     }
 
-    private void publishAccountIdToRegister(AccountId accountId) {
+    private void publishRegisterCustomerRequested(AccountId accountId) {
         messageQueue.publish(QueueNames.REGISTER_MERCHANT_REQUESTED, new Event(new Object[]{ accountId }));
     }
 
     @SneakyThrows
-    private User consumeRegisteredUser() {
+    private User addRegisterCustomerReturnedSubscriber() {
         CompletableFuture<User> completableFuture = new CompletableFuture<>();
         Channel channel = messageQueue.addHandler(
                 QueueNames.REGISTER_MERCHANT_RETURNED,
@@ -55,13 +53,13 @@ public class Service {
         return user;
     }
 
-    private void publishInitiatePayment(InitiatePaymentDTO initiatePaymentDTO) {
+    private void publishInitiatePaymentRequest(InitiatePaymentDTO initiatePaymentDTO) {
         initiatePaymentDTO.setMerchantUser(user);
         messageQueue.publish(QueueNames.INITIATE_PAYMENT_REQUESTED, new Event(new Object[]{ initiatePaymentDTO }));
     }
 
     @SneakyThrows
-    private String consumeInitiatePayment() {
+    private String addInitiatePaymentReturnedSubscriber() {
         CompletableFuture<String> completableFuture = new CompletableFuture<>();
         Channel channel = messageQueue.addHandler(
                 QueueNames.INITIATE_PAYMENT_RETURNED,
@@ -79,9 +77,7 @@ public class Service {
     }
 
     private Consumer<Event> getPaymentInitiatedConsumer(CompletableFuture<String> completableFuture) {
-        return (event) -> {
-            completableFuture.complete(event.getArgument(0, String.class));
-        };
+        return (event) -> completableFuture.complete(event.getArgument(0, String.class));
     }
 
 }
