@@ -39,31 +39,18 @@ public class Service {
                     if (numOfTokens < 0 || numOfTokens > 6) {
                         messageQueue.publish(QueueNames.TOKENS_RETURNED, new Event(new Object[]{null}));
                     } else {
-                        messageQueue.publish(QueueNames.TM_ACCOUNT_REQUESTED, new Event(new Object[]{tokenRequest.getUser()}));
-                        addGetAccountSubscriber(tokenRequest.getUser());
+                        List<String> tokens = generateTokens(tokenRequest.getUser());
+                        messageQueue.publish(QueueNames.TOKENS_RETURNED, new Event(new Object[]{tokens}));
                     }
                 });
     }
 
     public void addAccountFromTokenRequestedSubscriber() {
-        messageQueue.addHandler(QueueNames.USER_REQUESTED,
+        messageQueue.addHandler(QueueNames.USER_FROM_TOKEN_REQUESTED,
                 (event) -> {
                     String token = event.getArgument(0, String.class);
                     User user = repository.findUserAndRemoveToken(token);
-                    messageQueue.publish(QueueNames.USER_RETURNED, new Event(new Object[]{ user }));
-                });
-    }
-
-    private void addGetAccountSubscriber(User user) {
-        messageQueue.addHandler(QueueNames.TM_ACCOUNT_RETURNED,
-                (event) -> {
-                    AccountId accountId = event.getArgument(0, AccountId.class);
-                    if (accountId == null) {
-                        messageQueue.publish(QueueNames.TOKENS_RETURNED, new Event(new Object[]{null}));
-                    } else {
-                        List<String> tokens = generateTokens(user);
-                        messageQueue.publish(QueueNames.TOKENS_RETURNED, new Event(new Object[]{tokens}));
-                    }
+                    messageQueue.publish(QueueNames.USER_FROM_TOKEN_RETURNED, new Event(new Object[]{ user }));
                 });
     }
 

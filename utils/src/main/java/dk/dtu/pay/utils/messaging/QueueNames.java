@@ -19,19 +19,15 @@ public class QueueNames {
     public static final String TOKENS_RETURNED = "TokensReturned";
 
     // Payment management --- > Token management
-    public static final String USER_REQUESTED = "UserRequested";
-    public static final String USER_RETURNED = "UserReturned";
+    public static final String USER_FROM_TOKEN_REQUESTED = "UserRequested";
+    public static final String USER_FROM_TOKEN_RETURNED = "UserReturned";
 
-    // TODO: need to be added in Miro
+    // TODO: need to be added in Miro (it replaces the connection between token management and account management)
     // Payment management --- > Account management
-    public static final String PM_ACCOUNT_REQUESTED = "PMAccountRequested";
-    public static final String PM_ACCOUNT_RETURNED = "PMAccountReturned";
+    public static final String PAYMENT_MANAGEMENT_ACCOUNT_REQUESTED = "PMAccountRequested";
+    public static final String PAYMENT_MANAGEMENT_ACCOUNT_RETURNED = "PMAccountReturned";
 
-    // Token management --- > Account management
-    public static final String TM_ACCOUNT_REQUESTED = "TMAccountRequested";
-    public static final String TM_ACCOUNT_RETURNED = "TMAccountReturned";
-
-    // Utility queues - they are not part of the architecture, just for test purposes
+    // Utility queues - they are not part of the architecture, just for test purposes to clean the repositories
     public static final String CLEAN_ACCOUNT_MANAGEMENT_REQUESTED = "TMAccountRequested";
     public static final String CLEAN_TOKEN_MANAGEMENT_REQUESTED = "TMAccountRequested";
 

@@ -5,15 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e5b01635-ccb1-4caa-b332-df6be20a56a3" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/dk/dtu/pay/paymentmanagement/Service.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dk/dtu/pay/paymentmanagement/StartUp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../account-management/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../account-management/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../customer/src/main/java/dk/dtu/pay/customer/Service.java" beforeDir="false" afterPath="$PROJECT_DIR$/../customer/src/main/java/dk/dtu/pay/customer/Service.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../merchant/src/main/java/dk/dtu/pay/merchant/Service.java" beforeDir="false" afterPath="$PROJECT_DIR$/../merchant/src/main/java/dk/dtu/pay/merchant/Service.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../account-management/src/main/java/dk/dtu/pay/accountmanagement/Service.java" beforeDir="false" afterPath="$PROJECT_DIR$/../account-management/src/main/java/dk/dtu/pay/accountmanagement/Service.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dk/dtu/pay/paymentmanagement/Resource.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../token-management/src/main/java/dk/dtu/pay/tokenmanagement/Service.java" beforeDir="false" afterPath="$PROJECT_DIR$/../token-management/src/main/java/dk/dtu/pay/tokenmanagement/Service.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../utils/src/main/java/dk/dtu/pay/utils/messaging/QueueNames.java" beforeDir="false" afterPath="$PROJECT_DIR$/../utils/src/main/java/dk/dtu/pay/utils/messaging/QueueNames.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,7 +45,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/Piotrek/Desktop/Masters/SD/Webservices/account-management",
+    "last_opened_file_path": "C:/Users/Piotrek/Desktop/Masters/SD/Webservices/payment-management",
     "nodejs_package_manager_path": "npm"
   }
 }]]></component>
@@ -97,6 +92,8 @@
       <workItem from="1673476257303" duration="168000" />
       <workItem from="1673512830410" duration="1755000" />
       <workItem from="1673641778829" duration="3220000" />
+      <workItem from="1673701455255" duration="389000" />
+      <workItem from="1673702592430" duration="121000" />
     </task>
     <servers />
   </component>
@@ -117,11 +114,6 @@
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/dk/dtu/pay/paymentmanagement/Service.java</url>
-          <line>58</line>
-          <option name="timeStamp" value="25" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/dk/dtu/pay/paymentmanagement/Service.java</url>
           <line>44</line>

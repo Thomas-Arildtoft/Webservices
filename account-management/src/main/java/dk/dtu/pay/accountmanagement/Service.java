@@ -23,8 +23,7 @@ public class Service {
         subscribeCleanAccountManagementRequest();
         addRegisterSubscriber(QueueNames.REGISTER_CUSTOMER_REQUESTED, QueueNames.REGISTER_CUSTOMER_RETURNED, Role.CUSTOMER);
         addRegisterSubscriber(QueueNames.REGISTER_MERCHANT_REQUESTED, QueueNames.REGISTER_MERCHANT_RETURNED, Role.MERCHANT);
-        addGetAccountSubscriber(QueueNames.TM_ACCOUNT_REQUESTED, QueueNames.TM_ACCOUNT_RETURNED);
-        addGetAccountSubscriber(QueueNames.PM_ACCOUNT_REQUESTED, QueueNames.PM_ACCOUNT_RETURNED);
+        addGetAccountSubscriber(QueueNames.PAYMENT_MANAGEMENT_ACCOUNT_REQUESTED, QueueNames.PAYMENT_MANAGEMENT_ACCOUNT_RETURNED);
     }
 
     private void subscribeCleanAccountManagementRequest() {

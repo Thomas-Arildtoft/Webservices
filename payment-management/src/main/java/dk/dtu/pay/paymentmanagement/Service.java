@@ -35,9 +35,9 @@ public class Service {
 
     @SneakyThrows
     private void getMerchantAccountId(InitiatePaymentDTO initiatePaymentDTO) {
-        messageQueue.publish(QueueNames.PM_ACCOUNT_REQUESTED, new Event(new Object[]{initiatePaymentDTO.getMerchantUser()}));
+        messageQueue.publish(QueueNames.PAYMENT_MANAGEMENT_ACCOUNT_REQUESTED, new Event(new Object[]{initiatePaymentDTO.getMerchantUser()}));
         CompletableFuture<AccountId> merchantAccountIdFuture = new CompletableFuture<>();
-        Channel channel = messageQueue.addHandler(QueueNames.PM_ACCOUNT_RETURNED,
+        Channel channel = messageQueue.addHandler(QueueNames.PAYMENT_MANAGEMENT_ACCOUNT_RETURNED,
                 (event) -> {
                     merchantAccountIdFuture.complete(event.getArgument(0, AccountId.class));
                 });
@@ -49,9 +49,9 @@ public class Service {
 
     @SneakyThrows
     private void getCustomerUser(InitiatePaymentDTO initiatePaymentDTO, AccountId merchantAccountId) {
-        messageQueue.publish(QueueNames.USER_REQUESTED, new Event(new Object[]{initiatePaymentDTO.getCustomerToken()}));
+        messageQueue.publish(QueueNames.USER_FROM_TOKEN_REQUESTED, new Event(new Object[]{initiatePaymentDTO.getCustomerToken()}));
         CompletableFuture<User> customerUserFuture = new CompletableFuture<>();
-        Channel channel = messageQueue.addHandler(QueueNames.USER_RETURNED,
+        Channel channel = messageQueue.addHandler(QueueNames.USER_FROM_TOKEN_RETURNED,
                 (event) -> {
                     customerUserFuture.complete(event.getArgument(0, User.class));
                 });
@@ -63,9 +63,9 @@ public class Service {
 
     @SneakyThrows
     private void getCustomerAccountId(InitiatePaymentDTO initiatePaymentDTO, AccountId merchantAccountId, User customerUser) {
-        messageQueue.publish(QueueNames.PM_ACCOUNT_REQUESTED, new Event(new Object[]{customerUser}));
+        messageQueue.publish(QueueNames.PAYMENT_MANAGEMENT_ACCOUNT_REQUESTED, new Event(new Object[]{customerUser}));
         CompletableFuture<AccountId> customerAccountIdFuture = new CompletableFuture<>();
-        Channel channel = messageQueue.addHandler(QueueNames.PM_ACCOUNT_RETURNED,
+        Channel channel = messageQueue.addHandler(QueueNames.PAYMENT_MANAGEMENT_ACCOUNT_RETURNED,
                 (event) -> {
                     customerAccountIdFuture.complete(event.getArgument(0, AccountId.class));
                 });
