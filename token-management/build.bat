@@ -1,2 +1,2 @@
-mvn clean package
-docker-compose build token-management
+call mvn clean package
+call docker-compose build token-management

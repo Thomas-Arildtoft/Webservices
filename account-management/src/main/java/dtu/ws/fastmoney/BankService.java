@@ -1,6 +1,8 @@
 
 package dtu.ws.fastmoney;
 
+import java.math.BigDecimal;
+import java.util.List;
 import jakarta.jws.WebMethod;
 import jakarta.jws.WebParam;
 import jakarta.jws.WebResult;
@@ -8,9 +10,6 @@ import jakarta.jws.WebService;
 import jakarta.xml.bind.annotation.XmlSeeAlso;
 import jakarta.xml.ws.RequestWrapper;
 import jakarta.xml.ws.ResponseWrapper;
-
-import java.math.BigDecimal;
-import java.util.List;
 
 
 /**

@@ -1,24 +1,25 @@
-
 pushd utils
-call build.bat
-popd
+call mvn clean
+popd 
 
 pushd account-management
-call build.bat
+call mvn clean
 popd 
 
 pushd token-management
-call build.bat
+call mvn clean
 popd
 
 pushd payment-management
-call build.bat
-popd
+call mvn clean
+popd 
 
 pushd customer
-call build.bat
-popd
+call mvn clean
+popd 
 
 pushd merchant
-call build.bat
+call mvn clean
 popd
+
+

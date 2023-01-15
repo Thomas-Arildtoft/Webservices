@@ -1,0 +1,29 @@
+version: '3'
+services:
+  rabbitMq:
+    image: rabbitmq:3-management
+    container_name: rabbitMq
+     
+  account-management:
+    image: account-management
+    container_name: account-management
+
+  token-management:
+    image: token-management
+    container_name: token-management
+
+  payment-management:
+    image: payment-management
+    container_name: payment-management
+
+  customer:
+    image: customer
+    container_name: customer
+    ports:
+      - "8083:8083"
+
+  merchant:
+    image: merchant
+    container_name: merchant
+    ports:
+      - "8084:8084"

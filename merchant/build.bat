@@ -1,3 +1,3 @@
-mvn clean package
-docker-compose build merchant
+call mvn clean package
+call docker-compose build merchant
 
