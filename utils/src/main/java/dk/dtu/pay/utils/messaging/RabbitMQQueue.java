@@ -59,7 +59,7 @@ public class RabbitMQQueue implements MessageQueue {
     @SneakyThrows
     private Connection getConnection() {
         ConnectionFactory factory = new ConnectionFactory();
-        factory.setHost(DEFAULT_HOSTNAME);
+        factory.setHost(hostname);
         return factory.newConnection();
     }
 
