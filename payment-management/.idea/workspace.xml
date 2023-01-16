@@ -5,8 +5,28 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e5b01635-ccb1-4caa-b332-df6be20a56a3" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../end-to-end-tests/src/test/java/CucumberTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../end-to-end-tests/src/test/java/steps/GetTokensSuccessSteps.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../end-to-end-tests/src/test/java/steps/InitiatePaymentSuccessSteps.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../end-to-end-tests/src/test/java/steps/RegisterCustomerSuccessSteps.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../end-to-end-tests/src/test/java/steps/RegisterMerchantSuccessSteps.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../end-to-end-tests/src/test/java/utils/BankServiceUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../end-to-end-tests/src/test/java/utils/CustomerRestClient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../end-to-end-tests/src/test/java/utils/MerchantRestClient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../end-to-end-tests/src/test/java/utils/RepositoriesCleaner.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../end-to-end-tests/src/test/resources/get-tokens.feature" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../end-to-end-tests/src/test/resources/initiate-payment-success.feature" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../end-to-end-tests/src/test/resources/register-merchant-success.feature" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../account-management/src/main/java/dk/dtu/pay/accountmanagement/Repository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../account-management/src/main/java/dk/dtu/pay/accountmanagement/Repository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../account-management/src/main/java/dk/dtu/pay/accountmanagement/Service.java" beforeDir="false" afterPath="$PROJECT_DIR$/../account-management/src/main/java/dk/dtu/pay/accountmanagement/Service.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../customer/src/main/java/dk/dtu/pay/customer/Resource.java" beforeDir="false" afterPath="$PROJECT_DIR$/../customer/src/main/java/dk/dtu/pay/customer/Resource.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../end-to-end-tests/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../merchant/src/main/java/dk/dtu/pay/merchant/Service.java" beforeDir="false" afterPath="$PROJECT_DIR$/../merchant/src/main/java/dk/dtu/pay/merchant/Service.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dk/dtu/pay/paymentmanagement/Resource.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dk/dtu/pay/paymentmanagement/Resource.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dk/dtu/pay/paymentmanagement/Service.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dk/dtu/pay/paymentmanagement/Service.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../token-management/src/main/java/dk/dtu/pay/tokenmanagement/Service.java" beforeDir="false" afterPath="$PROJECT_DIR$/../token-management/src/main/java/dk/dtu/pay/tokenmanagement/Service.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../utils/src/main/java/dk/dtu/pay/utils/messaging/Event.java" beforeDir="false" afterPath="$PROJECT_DIR$/../utils/src/main/java/dk/dtu/pay/utils/messaging/Event.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../utils/src/main/java/dk/dtu/pay/utils/messaging/QueueNames.java" beforeDir="false" afterPath="$PROJECT_DIR$/../utils/src/main/java/dk/dtu/pay/utils/messaging/QueueNames.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,18 +57,19 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/Piotrek/Downloads/g-17-handin/g-17-handin/code/end_to_end_tests",
-    "nodejs_package_manager_path": "npm"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Piotrek/Desktop/Masters/SD/Webservices/merchant&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Piotrek\Desktop\Masters\SD\Webservices\payment-management\src\main\java\dk\dtu\pay\paymentmanagement" />
       <recent name="C:\Users\Piotrek\Desktop\Masters\SD\Webservices\payment-management" />
       <recent name="C:\Users\Piotrek\Desktop\Masters\SD\Webservices\payment-management\src\test" />
       <recent name="C:\Users\Piotrek\Desktop\Masters\SD\Webservices\payment-management\src\test\java" />
@@ -59,37 +80,24 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration name="payment-management" type="QuarkusRunConfigurationType" factoryName="Quarkus">
+    <configuration name="payment-management" type="Application" factoryName="Application" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="dk.dtu.pay.paymentmanagement.StartUp" />
       <module name="payment-management" />
-      <QsMavenRunConfiguration>
-        <MavenSettings>
-          <option name="myGeneralSettings" />
-          <option name="myRunnerSettings" />
-          <option name="myRunnerParameters">
-            <MavenRunnerParameters>
-              <option name="profiles">
-                <set />
-              </option>
-              <option name="goals">
-                <list>
-                  <option value="quarkus:dev" />
-                </list>
-              </option>
-              <option name="pomFileName" value="pom.xml" />
-              <option name="profilesMap">
-                <map />
-              </option>
-              <option name="resolveToWorkspace" value="false" />
-              <option name="workingDirPath" value="$PROJECT_DIR$" />
-            </MavenRunnerParameters>
-          </option>
-        </MavenSettings>
-        <targetMavenLocalRepo />
-      </QsMavenRunConfiguration>
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="dk.dtu.pay.paymentmanagement.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.payment-management" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -101,6 +109,11 @@
       <updated>1673476254839</updated>
       <workItem from="1673476257303" duration="168000" />
       <workItem from="1673512830410" duration="1755000" />
+      <workItem from="1673641778829" duration="3220000" />
+      <workItem from="1673701455255" duration="389000" />
+      <workItem from="1673702592430" duration="121000" />
+      <workItem from="1673704645961" duration="137000" />
+      <workItem from="1673719996762" duration="1276000" />
     </task>
     <servers />
   </component>

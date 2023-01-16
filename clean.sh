@@ -1,16 +1,16 @@
 #!/bin/bash
 set -e
 
+pushd utils
+mvn clean
+popd 
+
+
 pushd account-management
 mvn clean
 popd 
 
-# Build the services
 pushd customer
-mvn clean
-popd 
-
-pushd manager
 mvn clean
 popd 
 

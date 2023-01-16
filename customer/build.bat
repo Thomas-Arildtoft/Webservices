@@ -1,2 +1,2 @@
-mvn clean package
-docker-compose build customer
+call mvn clean package
+call docker-compose build customer
