@@ -3,6 +3,7 @@ package steps;
 import dk.dtu.pay.utils.models.AccountId;
 import dk.dtu.pay.utils.models.Role;
 import dk.dtu.pay.utils.models.User;
+import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -25,7 +26,7 @@ public class RegisterMerchantSuccessSteps {
     private AccountId merchantAccountId;
     private Response response;
 
-    @Before
+    @After
     public void cleanUp() {
         new RepositoriesCleaner().clean();
     }

@@ -5,6 +5,7 @@ import dk.dtu.pay.utils.models.InitiatePaymentDTO;
 import dk.dtu.pay.utils.models.Role;
 import dk.dtu.pay.utils.models.User;
 import dtu.ws.fastmoney.Account;
+import io.cucumber.java.After;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -14,6 +15,7 @@ import jakarta.ws.rs.core.Response;
 import utils.BankServiceUtils;
 import utils.CustomerRestClient;
 import utils.MerchantRestClient;
+import utils.RepositoriesCleaner;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -32,6 +34,11 @@ public class InitiatePaymentSuccessSteps {
     private long previousCustomerBalance;
     private long previousMerchantBalance;
 
+    @After
+    public void cleanUp() {
+        new RepositoriesCleaner().clean();
+    }
+    
     @Given(": [InitiatePayment] Customer {string} {string} with cpr {string} with an account balance of {int} exists")
     public void initiatePaymentCustomerWithCprWithAnAccountBalanceOfExists(String name, String lastname, String cprNumber, int amount) {
         dtu.ws.fastmoney.User user = new dtu.ws.fastmoney.User();

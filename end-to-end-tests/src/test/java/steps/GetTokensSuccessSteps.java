@@ -3,6 +3,7 @@ package steps;
 import dk.dtu.pay.utils.models.AccountId;
 import dk.dtu.pay.utils.models.Role;
 import dk.dtu.pay.utils.models.User;
+import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
@@ -27,7 +28,7 @@ public class GetTokensSuccessSteps {
     private AccountId customerAccountId;
     private Response response;
 
-    @Before
+    @After
     public void cleanUp() {
         new RepositoriesCleaner().clean();
     }

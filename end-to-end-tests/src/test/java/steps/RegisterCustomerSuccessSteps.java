@@ -3,12 +3,14 @@ package steps;
 import dk.dtu.pay.utils.models.AccountId;
 import dk.dtu.pay.utils.models.Role;
 import dk.dtu.pay.utils.models.User;
+import io.cucumber.java.After;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import jakarta.ws.rs.core.Response;
 import utils.BankServiceUtils;
 import utils.CustomerRestClient;
+import utils.RepositoriesCleaner;
 
 import java.math.BigDecimal;
 
@@ -23,6 +25,10 @@ public class RegisterCustomerSuccessSteps {
     private AccountId customerAccountId;
     private Response response;
 
+    @After
+    public void cleanUp() {
+        new RepositoriesCleaner().clean();
+    }
 
     @Given(": [RegisterCustomer] Customer {string} {string} with cpr {string} with an account balance of {int} exists")
     public void customerWithCprWithAnAccountBalanceOfExists(String name, String lastname, String cprNumber, int amount) {
