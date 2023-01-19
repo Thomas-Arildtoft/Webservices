@@ -11,7 +11,12 @@ import java.nio.charset.StandardCharsets;
 import java.util.function.Consumer;
 
 public class RabbitMQQueue implements MessageQueue {
-
+    /***
+     *
+     *
+     *
+     *
+     * */
     private static final String DEFAULT_HOSTNAME = "localhost";
 
     private String hostname;

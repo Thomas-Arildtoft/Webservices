@@ -9,6 +9,7 @@ import javax.ws.rs.core.Response;
 
 @Path("/customers")
 public class Resource {
+
     private final Service service = new Service(RabbitMQQueue.getInstance());
 
     @POST
@@ -40,3 +41,10 @@ public class Resource {
     }
 
 }
+
+/***
+ *
+ *
+ *
+ *
+ * */

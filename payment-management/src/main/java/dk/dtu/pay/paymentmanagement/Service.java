@@ -14,7 +14,12 @@ import lombok.SneakyThrows;
 
 import java.math.BigDecimal;
 import java.util.concurrent.CompletableFuture;
-
+/***
+ *
+ *
+ *
+ *
+ * */
 public class Service {
 
     private final MessageQueue messageQueue;
@@ -127,3 +132,9 @@ public class Service {
     }
 
 }
+/***
+ *
+ *
+ *
+ *
+ * */
