@@ -43,6 +43,7 @@ public class Service {
 
     @SneakyThrows
     private void requestMerchantAccountId(InitiatePaymentDTO initiatePaymentDTO) {
+        System.out.println("Retrieve merchant account Id");
         messageQueue.publish(QueueNames.ACCOUNT_REQUESTED, new Event(new Object[]{initiatePaymentDTO.getMerchantUser()}));
 
         CompletableFuture<Event> completableFuture = new CompletableFuture<>();
@@ -53,6 +54,7 @@ public class Service {
         Event event = completableFuture.join();
         AccountId accountId = event.getArgument(0, AccountId.class);
 
+        System.out.println("Merchant account Id " + accountId);
         if (channel != null)
             channel.close();
         if (accountId != null)
@@ -65,6 +67,7 @@ public class Service {
 
     @SneakyThrows
     private void requestCustomerUser(InitiatePaymentDTO initiatePaymentDTO, AccountId merchantAccountId) {
+        System.out.println("Retrieve customer user");
         messageQueue.publish(QueueNames.USER_FROM_TOKEN_REQUESTED, new Event(new Object[]{initiatePaymentDTO.getCustomerToken()}));
 
         CompletableFuture<Event> completableFuture = new CompletableFuture<>();
@@ -76,6 +79,7 @@ public class Service {
         User user = event.getArgument(0, User.class);
         String message = event.getArgument(1, String.class);
 
+        System.out.println("Customer user " + user);
         if (channel != null)
             channel.close();
         if (user != null)
@@ -86,6 +90,7 @@ public class Service {
 
     @SneakyThrows
     private void requestCustomerAccountId(InitiatePaymentDTO initiatePaymentDTO, AccountId merchantAccountId, User customerUser) {
+        System.out.println("Retrieve customer account Id");
         messageQueue.publish(QueueNames.ACCOUNT_REQUESTED, new Event(new Object[]{customerUser}));
 
         CompletableFuture<Event> completableFuture = new CompletableFuture<>();
@@ -96,6 +101,7 @@ public class Service {
         Event event = completableFuture.join();
         AccountId accountId = event.getArgument(0, AccountId.class);
 
+        System.out.println("Customer account Id " + accountId);
         if (channel != null)
             channel.close();
         if (accountId != null)
