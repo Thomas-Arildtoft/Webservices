@@ -10,7 +10,7 @@ import javax.ws.rs.core.Response;
 
 @Path("/customers")
 public class Resource {
-    private final Service service = new Service(RabbitMQQueue.getInstance());
+    private final Service service = new Service(new RabbitMQQueue()); //TODO: restore it later
 
     @POST
     @Path("/register")
@@ -18,10 +18,9 @@ public class Resource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response register(AccountId accountId) {
         try {
-            User user = service.register(accountId);
-            return Response.ok().entity(user).build();
+            return Response.ok().entity(service.register(accountId)).build();
         } catch (Exception e) {
-            return Response.status(404).entity("Registration failed").build();
+            return Response.status(404).entity(e.getMessage()).build();
         }
     }
 
@@ -32,7 +31,7 @@ public class Resource {
         try {
             return Response.ok().entity(service.getTokens(numOfTokens)).build();
         } catch (Exception e) {
-            return Response.status(404).entity("Getting tokens failed").build();
+            return Response.status(404).entity(e.getMessage()).build();
         }
     }
 

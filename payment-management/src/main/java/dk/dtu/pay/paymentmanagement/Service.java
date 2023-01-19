@@ -46,9 +46,8 @@ public class Service {
         messageQueue.publish(QueueNames.ACCOUNT_REQUESTED, new Event(new Object[]{initiatePaymentDTO.getMerchantUser()}));
         CompletableFuture<AccountId> merchantAccountIdFuture = new CompletableFuture<>();
         Channel channel = messageQueue.addHandler(QueueNames.ACCOUNT_RETURNED,
-                (event) -> {
-                    merchantAccountIdFuture.complete(event.getArgument(0, AccountId.class));
-                });
+                (event) -> merchantAccountIdFuture.complete(event.getArgument(0, AccountId.class)));
+
         AccountId merchantAccountId = merchantAccountIdFuture.join();
         if (channel != null)
             channel.close();
@@ -60,9 +59,8 @@ public class Service {
         messageQueue.publish(QueueNames.USER_FROM_TOKEN_REQUESTED, new Event(new Object[]{initiatePaymentDTO.getCustomerToken()}));
         CompletableFuture<User> customerUserFuture = new CompletableFuture<>();
         Channel channel = messageQueue.addHandler(QueueNames.USER_FROM_TOKEN_RETURNED,
-                (event) -> {
-                    customerUserFuture.complete(event.getArgument(0, User.class));
-                });
+                (event) -> customerUserFuture.complete(event.getArgument(0, User.class)));
+
         User customerUser = customerUserFuture.join();
         if (channel != null)
             channel.close();
@@ -74,9 +72,8 @@ public class Service {
         messageQueue.publish(QueueNames.ACCOUNT_REQUESTED, new Event(new Object[]{customerUser}));
         CompletableFuture<AccountId> customerAccountIdFuture = new CompletableFuture<>();
         Channel channel = messageQueue.addHandler(QueueNames.ACCOUNT_RETURNED,
-                (event) -> {
-                    customerAccountIdFuture.complete(event.getArgument(0, AccountId.class));
-                });
+                (event) -> customerAccountIdFuture.complete(event.getArgument(0, AccountId.class)));
+
         AccountId customerAccountId = customerAccountIdFuture.join();
         if (channel != null)
             channel.close();

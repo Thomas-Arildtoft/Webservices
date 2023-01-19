@@ -12,7 +12,7 @@ import java.util.UUID;
 
 public class Service {
 
-    private final static int MINIMUM_NUM_OF_TOKENS = 0;
+    private final static int MINIMUM_NUM_OF_TOKENS = 1;
     private final static int MAXIMUM_NUM_OF_TOKENS = 6;
     private final MessageQueue messageQueue;
     private Repository repository = new Repository();
@@ -35,10 +35,10 @@ public class Service {
                     TokenRequest tokenRequest = event.getArgument(0, TokenRequest.class);
                     int numOfTokens = tokenRequest.getNumberOfTokens();
                     if (numOfTokens < MINIMUM_NUM_OF_TOKENS || numOfTokens > MAXIMUM_NUM_OF_TOKENS) {
-                        messageQueue.publish(QueueNames.TOKENS_RETURNED, new Event(new Object[]{null}));
+                        messageQueue.publish(QueueNames.TOKENS_RETURNED, new Event(new Object[]{null, "Incorrect number of tokens request. Allowed range [1,6]"}));
                     } else {
                         List<String> tokens = generateTokens(tokenRequest);
-                        messageQueue.publish(QueueNames.TOKENS_RETURNED, new Event(new Object[]{tokens}));
+                        messageQueue.publish(QueueNames.TOKENS_RETURNED, new Event(new Object[]{tokens, "Tokens successfully generated"}));
                     }
                 });
     }

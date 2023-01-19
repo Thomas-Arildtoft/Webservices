@@ -5,10 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e5b01635-ccb1-4caa-b332-df6be20a56a3" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../account-management/src/main/java/dk/dtu/pay/accountmanagement/StartUp.java" beforeDir="false" afterPath="$PROJECT_DIR$/../account-management/src/main/java/dk/dtu/pay/accountmanagement/StartUp.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dk/dtu/pay/paymentmanagement/Service.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dk/dtu/pay/paymentmanagement/Service.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../utils/src/main/java/dk/dtu/pay/utils/MessageQueueTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../utils/src/main/java/dk/dtu/pay/utils/MessageQueueTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../utils/src/main/java/dk/dtu/pay/utils/messaging/QueueNames.java" beforeDir="false" afterPath="$PROJECT_DIR$/../utils/src/main/java/dk/dtu/pay/utils/messaging/QueueNames.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,7 +44,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/Piotrek/Desktop/Masters/SD/Webservices/payment-management",
+    "last_opened_file_path": "C:/Users/Piotrek/Desktop/Masters/SD/Webservices/customer",
     "nodejs_package_manager_path": "npm"
   }
 }]]></component>
@@ -96,7 +95,8 @@
       <workItem from="1673702592430" duration="121000" />
       <workItem from="1673704645961" duration="137000" />
       <workItem from="1673719996762" duration="1276000" />
-      <workItem from="1673858932813" duration="244000" />
+      <workItem from="1673858932813" duration="931000" />
+      <workItem from="1674113504775" duration="913000" />
     </task>
     <servers />
   </component>
@@ -113,5 +113,31 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/dk/dtu/pay/paymentmanagement/Service.java</url>
+          <line>38</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/dk/dtu/pay/paymentmanagement/Service.java</url>
+          <line>50</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/dk/dtu/pay/paymentmanagement/Service.java</url>
+          <line>63</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/dk/dtu/pay/paymentmanagement/Service.java</url>
+          <line>76</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

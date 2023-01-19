@@ -11,7 +11,7 @@ import javax.ws.rs.core.Response;
 
 @Path("/merchants")
 public class Resource {
-    private final Service service = new Service(RabbitMQQueue.getInstance());
+    private final Service service = new Service(new RabbitMQQueue()); //TODO: restore it later
 
     @POST
     @Path("/register")
@@ -22,7 +22,7 @@ public class Resource {
             User user = service.register(accountId);
             return Response.ok().entity(user).build();
         } catch (Exception e) {
-            return Response.status(404).entity("Registration failed").build();
+            return Response.status(404).entity(e.getMessage()).build();
         }
     }
 

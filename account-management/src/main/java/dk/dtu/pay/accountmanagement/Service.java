@@ -36,9 +36,13 @@ public class Service {
     private void addRegisterRequestedSubscriber(String subscribeQueue, String publishQueue, Role role) {
         messageQueue.addHandler(subscribeQueue,
             (event) -> {
-                AccountId accountId = event.getArgument(0, AccountId.class);
-                User user = registerUser(accountId, role);
-                messageQueue.publish(publishQueue, new Event(new Object[]{user}));
+                try {
+                    AccountId accountId = event.getArgument(0, AccountId.class);
+                    User user = registerUser(accountId, role);
+                    messageQueue.publish(publishQueue, new Event(new Object[]{user, "Successfully registered"}));
+                } catch (Exception e) {
+                    messageQueue.publish(publishQueue, new Event(new Object[]{null, e.getMessage()}));
+                }
             });
     }
 
@@ -52,14 +56,10 @@ public class Service {
     }
 
     private User registerUser(AccountId accountId, Role role) {
-        try {
-            validateAccountId(accountId);
-            User user = new User(UUID.randomUUID().toString(), role);
-            repository.addUser(user, accountId);
-            return user;
-        } catch (Exception e) {
-            return null;
-        }
+        validateAccountId(accountId);
+        User user = new User(UUID.randomUUID().toString(), role);
+        repository.addUser(user, accountId);
+        return user;
     }
 
     @SneakyThrows
