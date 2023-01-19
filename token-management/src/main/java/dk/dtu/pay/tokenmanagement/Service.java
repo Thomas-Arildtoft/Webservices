@@ -47,6 +47,7 @@ public class Service {
         messageQueue.addHandler(QueueNames.USER_FROM_TOKEN_REQUESTED,
                 (event) -> {
                     String token = event.getArgument(0, String.class);
+                    System.out.println("Token " + token);
                     User user = repository.findUserAndRemoveToken(token);
                     if (user != null)
                         messageQueue.publish(QueueNames.USER_FROM_TOKEN_RETURNED, new Event(new Object[]{user, "User successfully retrieved"}));

@@ -18,6 +18,7 @@ public class Repository {
         for (var entry : userTokens.entrySet()) {
             User user = entry.getKey();
             List<String> tokens = entry.getValue();
+            System.out.println("Persisted tokens for user " + user + " are " + tokens);
             if (tokens.contains(token)) {
                 tokens.remove(token);
                 return user;
