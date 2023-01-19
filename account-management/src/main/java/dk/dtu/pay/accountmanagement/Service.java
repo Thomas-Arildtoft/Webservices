@@ -79,6 +79,6 @@ public class Service {
     private void validateAccountId(AccountId accountId) {
         bankService.getAccount(accountId.getId());
         if (repository.accountIsRegistered(accountId))
-            throw new Exception("Account already in use");
+            throw new Exception("Account already used");
     }
 }
