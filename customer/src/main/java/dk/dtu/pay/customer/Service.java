@@ -28,7 +28,10 @@ public class Service {
         return addRegisterCustomerReturnedSubscriber();
     }
 
+    @SneakyThrows
     public List<String> getTokens(int numberOfTokens) {
+        if (user == null)
+            throw new Exception("No customer registered");
         publishTokenRequested(numberOfTokens);
         return addTokensReturnedSubscriber();
     }
