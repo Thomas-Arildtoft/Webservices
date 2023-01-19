@@ -48,7 +48,10 @@ public class Service {
                 (event) -> {
                     String token = event.getArgument(0, String.class);
                     User user = repository.findUserAndRemoveToken(token);
-                    messageQueue.publish(QueueNames.USER_FROM_TOKEN_RETURNED, new Event(new Object[]{ user }));
+                    if (user != null)
+                        messageQueue.publish(QueueNames.USER_FROM_TOKEN_RETURNED, new Event(new Object[]{user, "User successfully retrieved"}));
+                    else
+                        messageQueue.publish(QueueNames.USER_FROM_TOKEN_RETURNED, new Event(new Object[]{null, "Invalid token"}));
                 });
     }
 

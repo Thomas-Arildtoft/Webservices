@@ -7,7 +7,7 @@ public class StartUp {
 
     @SneakyThrows
     public static void main(String[] args) {
-        new Service(new RabbitMQQueue()); //TODO: restore it later
+        new Service(RabbitMQQueue.getInstance());
     }
 
 }

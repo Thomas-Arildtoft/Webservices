@@ -47,7 +47,7 @@ public class Service {
                 completableFuture::complete);
 
         Event event = completableFuture.join();
-        User user = event.getArgument(0, User.class);
+        user = event.getArgument(0, User.class);
         String message = event.getArgument(1, String.class);
 
         if (channel != null)
@@ -71,8 +71,6 @@ public class Service {
         String message = completableFuture.join();
         if (channel != null)
             channel.close();
-        if (message == null)
-            throw new RuntimeException("Registration Failed");
         return message;
     }
 

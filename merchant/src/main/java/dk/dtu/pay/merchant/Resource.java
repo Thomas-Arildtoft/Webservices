@@ -11,7 +11,7 @@ import javax.ws.rs.core.Response;
 
 @Path("/merchants")
 public class Resource {
-    private final Service service = new Service(new RabbitMQQueue()); //TODO: restore it later
+    private final Service service = new Service(RabbitMQQueue.getInstance());
 
     @POST
     @Path("/register")

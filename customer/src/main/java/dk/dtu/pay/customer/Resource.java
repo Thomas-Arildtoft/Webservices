@@ -2,7 +2,6 @@ package dk.dtu.pay.customer;
 
 import dk.dtu.pay.utils.messaging.RabbitMQQueue;
 import dk.dtu.pay.utils.models.AccountId;
-import dk.dtu.pay.utils.models.User;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -10,7 +9,7 @@ import javax.ws.rs.core.Response;
 
 @Path("/customers")
 public class Resource {
-    private final Service service = new Service(new RabbitMQQueue()); //TODO: restore it later
+    private final Service service = new Service(RabbitMQQueue.getInstance());
 
     @POST
     @Path("/register")

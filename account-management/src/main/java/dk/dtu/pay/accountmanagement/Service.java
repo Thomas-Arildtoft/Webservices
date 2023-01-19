@@ -35,23 +35,27 @@ public class Service {
 
     private void addRegisterRequestedSubscriber(String subscribeQueue, String publishQueue, Role role) {
         messageQueue.addHandler(subscribeQueue,
-            (event) -> {
-                try {
-                    AccountId accountId = event.getArgument(0, AccountId.class);
-                    User user = registerUser(accountId, role);
-                    messageQueue.publish(publishQueue, new Event(new Object[]{user, "Successfully registered"}));
-                } catch (Exception e) {
-                    messageQueue.publish(publishQueue, new Event(new Object[]{null, e.getMessage()}));
-                }
-            });
+                (event) -> {
+                    try {
+                        AccountId accountId = event.getArgument(0, AccountId.class);
+                        User user = registerUser(accountId, role);
+                        messageQueue.publish(publishQueue, new Event(new Object[]{user, "Successfully registered"}));
+                    } catch (Exception e) {
+                        messageQueue.publish(publishQueue, new Event(new Object[]{null, e.getMessage()}));
+                    }
+                });
     }
 
     private void addAccountRequestedSubscriber() {
         messageQueue.addHandler(QueueNames.ACCOUNT_REQUESTED,
                 (event) -> {
-                    User user = event.getArgument(0, User.class);
-                    AccountId accountId = repository.getAccountId(user);
-                    messageQueue.publish(QueueNames.ACCOUNT_RETURNED, new Event(new Object[]{ accountId }));
+                    try {
+                        User user = event.getArgument(0, User.class);
+                        AccountId accountId = repository.getAccountId(user);
+                        messageQueue.publish(QueueNames.ACCOUNT_RETURNED, new Event(new Object[]{accountId, "User successfully found"}));
+                    } catch (Exception e) {
+                        messageQueue.publish(QueueNames.ACCOUNT_RETURNED, new Event(new Object[]{null, "User does not exist"}));
+                    }
                 });
     }
 

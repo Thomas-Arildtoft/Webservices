@@ -12,7 +12,6 @@ import lombok.SneakyThrows;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import java.util.function.Consumer;
 
 @RequiredArgsConstructor
 public class Service {
@@ -37,7 +36,7 @@ public class Service {
     }
 
     private void publishRegisterCustomerRequested(AccountId accountId) {
-        messageQueue.publish(QueueNames.REGISTER_CUSTOMER_REQUESTED, new Event(new Object[]{ accountId }));
+        messageQueue.publish(QueueNames.REGISTER_CUSTOMER_REQUESTED, new Event(new Object[]{accountId}));
     }
 
     @SneakyThrows
@@ -48,7 +47,7 @@ public class Service {
                 completableFuture::complete);
 
         Event event = completableFuture.join();
-        User user = event.getArgument(0, User.class);
+        user = event.getArgument(0, User.class);
         String message = event.getArgument(1, String.class);
 
         if (channel != null)
@@ -59,7 +58,7 @@ public class Service {
     }
 
     private void publishTokenRequested(int numOfTokens) {
-        messageQueue.publish(QueueNames.TOKENS_REQUESTED, new Event(new Object[]{ new TokenRequest(user, numOfTokens)}));
+        messageQueue.publish(QueueNames.TOKENS_REQUESTED, new Event(new Object[]{new TokenRequest(user, numOfTokens)}));
     }
 
     @SneakyThrows

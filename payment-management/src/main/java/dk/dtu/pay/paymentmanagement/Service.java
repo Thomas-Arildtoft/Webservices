@@ -44,40 +44,65 @@ public class Service {
     @SneakyThrows
     private void requestMerchantAccountId(InitiatePaymentDTO initiatePaymentDTO) {
         messageQueue.publish(QueueNames.ACCOUNT_REQUESTED, new Event(new Object[]{initiatePaymentDTO.getMerchantUser()}));
-        CompletableFuture<AccountId> merchantAccountIdFuture = new CompletableFuture<>();
-        Channel channel = messageQueue.addHandler(QueueNames.ACCOUNT_RETURNED,
-                (event) -> merchantAccountIdFuture.complete(event.getArgument(0, AccountId.class)));
 
-        AccountId merchantAccountId = merchantAccountIdFuture.join();
+        CompletableFuture<Event> completableFuture = new CompletableFuture<>();
+        Channel channel = messageQueue.addHandler(
+                QueueNames.ACCOUNT_RETURNED,
+                completableFuture::complete);
+
+        Event event = completableFuture.join();
+        AccountId accountId = event.getArgument(0, AccountId.class);
+
         if (channel != null)
             channel.close();
-        requestCustomerUser(initiatePaymentDTO, merchantAccountId);
+        if (accountId != null)
+            requestCustomerUser(initiatePaymentDTO, accountId);
+        else
+            messageQueue.publish(QueueNames.INITIATE_PAYMENT_RETURNED, new Event(
+                    new Object[]{"Merchant with id " + initiatePaymentDTO.getMerchantUser().getId() + " does not exist"}));
+
     }
 
     @SneakyThrows
     private void requestCustomerUser(InitiatePaymentDTO initiatePaymentDTO, AccountId merchantAccountId) {
         messageQueue.publish(QueueNames.USER_FROM_TOKEN_REQUESTED, new Event(new Object[]{initiatePaymentDTO.getCustomerToken()}));
-        CompletableFuture<User> customerUserFuture = new CompletableFuture<>();
-        Channel channel = messageQueue.addHandler(QueueNames.USER_FROM_TOKEN_RETURNED,
-                (event) -> customerUserFuture.complete(event.getArgument(0, User.class)));
 
-        User customerUser = customerUserFuture.join();
+        CompletableFuture<Event> completableFuture = new CompletableFuture<>();
+        Channel channel = messageQueue.addHandler(
+                QueueNames.USER_FROM_TOKEN_RETURNED,
+                completableFuture::complete);
+
+        Event event = completableFuture.join();
+        User user = event.getArgument(0, User.class);
+        String message = event.getArgument(1, String.class);
+
         if (channel != null)
             channel.close();
-        requestCustomerAccountId(initiatePaymentDTO, merchantAccountId, customerUser);
+        if (user != null)
+            requestCustomerAccountId(initiatePaymentDTO, merchantAccountId, user);
+        else
+            messageQueue.publish(QueueNames.INITIATE_PAYMENT_RETURNED, new Event(new Object[]{message}));
     }
 
     @SneakyThrows
     private void requestCustomerAccountId(InitiatePaymentDTO initiatePaymentDTO, AccountId merchantAccountId, User customerUser) {
         messageQueue.publish(QueueNames.ACCOUNT_REQUESTED, new Event(new Object[]{customerUser}));
-        CompletableFuture<AccountId> customerAccountIdFuture = new CompletableFuture<>();
-        Channel channel = messageQueue.addHandler(QueueNames.ACCOUNT_RETURNED,
-                (event) -> customerAccountIdFuture.complete(event.getArgument(0, AccountId.class)));
 
-        AccountId customerAccountId = customerAccountIdFuture.join();
+        CompletableFuture<Event> completableFuture = new CompletableFuture<>();
+        Channel channel = messageQueue.addHandler(
+                QueueNames.ACCOUNT_RETURNED,
+                completableFuture::complete);
+
+        Event event = completableFuture.join();
+        AccountId accountId = event.getArgument(0, AccountId.class);
+
         if (channel != null)
             channel.close();
-        realisePayment(customerAccountId, merchantAccountId, initiatePaymentDTO.getAmount());
+        if (accountId != null)
+            realisePayment(accountId, merchantAccountId, initiatePaymentDTO.getAmount());
+        else
+            messageQueue.publish(QueueNames.INITIATE_PAYMENT_RETURNED, new Event(
+                    new Object[]{"Customer with id " + customerUser.getId() + " does not exist"}));
     }
 
     private void realisePayment(AccountId customer, AccountId merchant, BigDecimal amount) {
@@ -87,9 +112,9 @@ public class Service {
                     merchant.getId(),
                     amount,
                     "Payment please");
-            messageQueue.publish(QueueNames.INITIATE_PAYMENT_RETURNED, new Event(new Object[]{"Success"}));
+            messageQueue.publish(QueueNames.INITIATE_PAYMENT_RETURNED, new Event(new Object[]{"Payment success"}));
         } catch (BankServiceException_Exception e) {
-            messageQueue.publish(QueueNames.INITIATE_PAYMENT_RETURNED, new Event(new Object[]{"Failure"}));
+            messageQueue.publish(QueueNames.INITIATE_PAYMENT_RETURNED, new Event(new Object[]{"Payment failed"}));
         }
     }
 
