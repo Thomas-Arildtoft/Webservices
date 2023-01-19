@@ -7,17 +7,21 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 public class Repository {
 
     private Map<User, AccountId> users = new HashMap<>();
+    private Logger logger = Logger.getLogger(Repository.class.getName());
 
     public void addUser(User user, AccountId accountId) {
         users.put(user, accountId);
     }
 
     public AccountId getAccountId(User user) {
+        logger.log(Level.INFO, "Persisted user(" + users + ") requested user(" + user + ")");
         return users.get(user);
     }
 

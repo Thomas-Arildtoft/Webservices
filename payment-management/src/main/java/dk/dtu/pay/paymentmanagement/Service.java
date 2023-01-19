@@ -14,11 +14,14 @@ import lombok.SneakyThrows;
 
 import java.math.BigDecimal;
 import java.util.concurrent.CompletableFuture;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Service {
 
     private final MessageQueue messageQueue;
     private BankService bankService = new BankServiceService().getBankServicePort();
+    private Logger logger = Logger.getLogger(Service.class.getName());
 
     public Service(MessageQueue messageQueue) {
         this.messageQueue = messageQueue;
@@ -37,13 +40,14 @@ public class Service {
         messageQueue.addHandler(QueueNames.INITIATE_PAYMENT_REQUESTED,
                 (event) -> {
                     InitiatePaymentDTO initiatePaymentDTO = event.getArgument(0, InitiatePaymentDTO.class);
+                    logger.log(Level.INFO, "INITIATE_PAYMENT_REQUESTED initiatePaymentDTO(" + initiatePaymentDTO + ")");
                     requestMerchantAccountId(initiatePaymentDTO);
                 });
     }
 
     @SneakyThrows
     private void requestMerchantAccountId(InitiatePaymentDTO initiatePaymentDTO) {
-        System.out.println("Retrieve merchant account Id");
+        logger.log(Level.INFO, "ACCOUNT_REQUESTED merchant(" + initiatePaymentDTO.getMerchantUser() + ")");
         messageQueue.publish(QueueNames.ACCOUNT_REQUESTED, new Event(new Object[]{initiatePaymentDTO.getMerchantUser()}));
 
         CompletableFuture<Event> completableFuture = new CompletableFuture<>();
@@ -52,9 +56,9 @@ public class Service {
                 completableFuture::complete);
 
         Event event = completableFuture.join();
+        logger.log(Level.INFO, "ACCOUNT_REQUESTED event(" + event + ")");
         AccountId accountId = event.getArgument(0, AccountId.class);
 
-        System.out.println("Merchant account Id " + accountId);
         if (channel != null)
             channel.close();
         if (accountId != null)
@@ -67,7 +71,7 @@ public class Service {
 
     @SneakyThrows
     private void requestCustomerUser(InitiatePaymentDTO initiatePaymentDTO, AccountId merchantAccountId) {
-        System.out.println("Retrieve customer user");
+        logger.log(Level.INFO, "USER_FROM_TOKEN_REQUESTED token(" + initiatePaymentDTO.getCustomerToken() + ")");
         messageQueue.publish(QueueNames.USER_FROM_TOKEN_REQUESTED, new Event(new Object[]{initiatePaymentDTO.getCustomerToken()}));
 
         CompletableFuture<Event> completableFuture = new CompletableFuture<>();
@@ -76,10 +80,10 @@ public class Service {
                 completableFuture::complete);
 
         Event event = completableFuture.join();
+        logger.log(Level.INFO, "USER_FROM_TOKEN_REQUESTED event(" + event + ")");
         User user = event.getArgument(0, User.class);
         String message = event.getArgument(1, String.class);
 
-        System.out.println("Customer user " + user);
         if (channel != null)
             channel.close();
         if (user != null)
@@ -90,7 +94,7 @@ public class Service {
 
     @SneakyThrows
     private void requestCustomerAccountId(InitiatePaymentDTO initiatePaymentDTO, AccountId merchantAccountId, User customerUser) {
-        System.out.println("Retrieve customer account Id");
+        logger.log(Level.INFO, "ACCOUNT_REQUESTED customer(" + customerUser + ")");
         messageQueue.publish(QueueNames.ACCOUNT_REQUESTED, new Event(new Object[]{customerUser}));
 
         CompletableFuture<Event> completableFuture = new CompletableFuture<>();
@@ -99,9 +103,9 @@ public class Service {
                 completableFuture::complete);
 
         Event event = completableFuture.join();
+        logger.log(Level.INFO, "ACCOUNT_REQUESTED event(" + event + ")");
         AccountId accountId = event.getArgument(0, AccountId.class);
 
-        System.out.println("Customer account Id " + accountId);
         if (channel != null)
             channel.close();
         if (accountId != null)
@@ -118,10 +122,10 @@ public class Service {
                     merchant.getId(),
                     amount,
                     "Payment please");
-            System.out.println("Payment success");
+            logger.log(Level.INFO, "INITIATE_PAYMENT_RETURNED success (" + customer + " " + merchant + " " + amount +")");
             messageQueue.publish(QueueNames.INITIATE_PAYMENT_RETURNED, new Event(new Object[]{"Payment success"}));
         } catch (BankServiceException_Exception e) {
-            System.out.println("Payment failed");
+            logger.log(Level.INFO, "INITIATE_PAYMENT_RETURNED failed (" + customer + " " + merchant + " " + amount +")");
             messageQueue.publish(QueueNames.INITIATE_PAYMENT_RETURNED, new Event(new Object[]{"Payment failed"}));
         }
     }

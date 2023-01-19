@@ -38,7 +38,7 @@ public class InitiatePaymentSuccessSteps {
     public void cleanUp() {
         new RepositoriesCleaner().clean();
     }
-    
+
     @Given(": [InitiatePayment] Customer {string} {string} with cpr {string} with an account balance of {int} exists")
     public void initiatePaymentCustomerWithCprWithAnAccountBalanceOfExists(String name, String lastname, String cprNumber, int amount) {
         dtu.ws.fastmoney.User user = new dtu.ws.fastmoney.User();

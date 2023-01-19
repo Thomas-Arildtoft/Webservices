@@ -9,6 +9,8 @@ import dk.dtu.pay.utils.models.User;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Service {
 
@@ -16,6 +18,7 @@ public class Service {
     private final static int MAXIMUM_NUM_OF_TOKENS = 6;
     private final MessageQueue messageQueue;
     private Repository repository = new Repository();
+    private Logger logger = Logger.getLogger(Service.class.getName());
 
     public Service(MessageQueue messageQueue) {
         this.messageQueue = messageQueue;
@@ -33,11 +36,14 @@ public class Service {
         messageQueue.addHandler(QueueNames.TOKENS_REQUESTED,
                 (event) -> {
                     TokenRequest tokenRequest = event.getArgument(0, TokenRequest.class);
+                    logger.log(Level.INFO, "TOKENS_REQUESTED tokenRequest(" + tokenRequest + ")");
                     int numOfTokens = tokenRequest.getNumberOfTokens();
                     if (numOfTokens < MINIMUM_NUM_OF_TOKENS || numOfTokens > MAXIMUM_NUM_OF_TOKENS) {
+                        logger.log(Level.INFO, "TOKENS_REQUESTED incorrect number(" + tokenRequest.getNumberOfTokens() + ")");
                         messageQueue.publish(QueueNames.TOKENS_RETURNED, new Event(new Object[]{null, "Incorrect number of tokens request. Allowed range [1,6]"}));
                     } else {
                         List<String> tokens = generateTokens(tokenRequest);
+                        logger.log(Level.INFO, "TOKENS_REQUESTED generated token(" + tokens + ")");
                         messageQueue.publish(QueueNames.TOKENS_RETURNED, new Event(new Object[]{tokens, "Tokens successfully generated"}));
                     }
                 });
@@ -47,12 +53,15 @@ public class Service {
         messageQueue.addHandler(QueueNames.USER_FROM_TOKEN_REQUESTED,
                 (event) -> {
                     String token = event.getArgument(0, String.class);
-                    System.out.println("Token " + token);
+                    logger.log(Level.INFO, "USER_FROM_TOKEN_REQUESTED token(" + token + ")");
                     User user = repository.findUserAndRemoveToken(token);
-                    if (user != null)
+                    if (user != null) {
+                        logger.log(Level.INFO, "USER_FROM_TOKEN_REQUESTED user(" + user + ")");
                         messageQueue.publish(QueueNames.USER_FROM_TOKEN_RETURNED, new Event(new Object[]{user, "User successfully retrieved"}));
-                    else
+                    } else {
+                        logger.log(Level.INFO, "USER_FROM_TOKEN_REQUESTED user null");
                         messageQueue.publish(QueueNames.USER_FROM_TOKEN_RETURNED, new Event(new Object[]{null, "Invalid token"}));
+                    }
                 });
     }
 
