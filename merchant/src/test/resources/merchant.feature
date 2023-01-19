@@ -1,6 +1,6 @@
 Feature: Merchant management
 
-  Scenario: Merchant registration
-    Given : Merchant has bank account id 123456789
-    When : Register merchant at DTU Pay
-    Then : User with role Merchant and bank account id 123456789 is returned
+  Scenario: Example test scenario
+    Given : Set number to 2
+    When : Add 1 to number
+    Then : Result is 3
