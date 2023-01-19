@@ -3,11 +3,10 @@ set -e
 
 ./build.sh
 
-# Update the set of services and
-# build and execute the system tests
-pushd end-to-end-tests
 ./deploy.sh 
 sleep 5
+
+pushd end-to-end-tests
 ./test.sh
 popd
 

@@ -12,12 +12,15 @@ import lombok.SneakyThrows;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @RequiredArgsConstructor
 public class Service {
 
     private final MessageQueue messageQueue;
     private User user = null;
+    private Logger logger = Logger.getLogger(Service.class.getName());
 
     public User register(AccountId accountId) {
         publishRegisterMerchantRequested(accountId);
@@ -36,6 +39,7 @@ public class Service {
     }
 
     private void publishRegisterMerchantRequested(AccountId accountId) {
+        logger.log(Level.INFO, "REGISTER_MERCHANT_REQUESTED account id(" + accountId + ")");
         messageQueue.publish(QueueNames.REGISTER_MERCHANT_REQUESTED, new Event(new Object[]{ accountId }));
     }
 
@@ -47,20 +51,21 @@ public class Service {
                 completableFuture::complete);
 
         Event event = completableFuture.join();
-        user = event.getArgument(0, User.class);
+        logger.log(Level.INFO, "REGISTER_MERCHANT_RETURNED event(" + event + ")");
+        User u = event.getArgument(0, User.class);
         String message = event.getArgument(1, String.class);
 
         if (channel != null)
             channel.close();
-        if (user == null)
+        if (u == null)
             throw new RuntimeException(message);
-        return user;
+        user = u;
+        return u;
     }
 
     private void publishInitiatePaymentRequest(InitiatePaymentDTO initiatePaymentDTO) {
         initiatePaymentDTO.setMerchantUser(user);
-        System.out.println("INITIATE_PAYMENT_REQUESTED " + user);
-        System.out.println(initiatePaymentDTO);
+        logger.log(Level.INFO, "INITIATE_PAYMENT_REQUESTED initiatePaymentDTO(" + initiatePaymentDTO + ")");
         messageQueue.publish(QueueNames.INITIATE_PAYMENT_REQUESTED, new Event(new Object[]{ initiatePaymentDTO }));
     }
 
@@ -70,7 +75,10 @@ public class Service {
         Channel channel = messageQueue.addHandler(
                 QueueNames.INITIATE_PAYMENT_RETURNED,
                 getPaymentInitiatedConsumer(completableFuture));
+
         String message = completableFuture.join();
+        logger.log(Level.INFO, "INITIATE_PAYMENT_RETURNED message(" + message + ")");
+
         if (channel != null)
             channel.close();
         return message;

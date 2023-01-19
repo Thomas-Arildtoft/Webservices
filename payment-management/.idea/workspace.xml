@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e5b01635-ccb1-4caa-b332-df6be20a56a3" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../merchant/src/main/java/dk/dtu/pay/merchant/Service.java" beforeDir="false" afterPath="$PROJECT_DIR$/../merchant/src/main/java/dk/dtu/pay/merchant/Service.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="e5b01635-ccb1-4caa-b332-df6be20a56a3" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -96,7 +93,7 @@
       <workItem from="1673719996762" duration="1276000" />
       <workItem from="1673858932813" duration="931000" />
       <workItem from="1674113504775" duration="913000" />
-      <workItem from="1674116179900" duration="5050000" />
+      <workItem from="1674116179900" duration="6289000" />
     </task>
     <servers />
   </component>
@@ -119,27 +116,17 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/dk/dtu/pay/paymentmanagement/Service.java</url>
-          <line>38</line>
+          <line>41</line>
           <option name="timeStamp" value="5" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/dk/dtu/pay/paymentmanagement/Service.java</url>
-          <line>104</line>
-          <option name="timeStamp" value="9" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/dk/dtu/pay/paymentmanagement/Service.java</url>
-          <line>100</line>
-          <option name="timeStamp" value="10" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/dk/dtu/pay/paymentmanagement/Service.java</url>
-          <line>125</line>
+          <line>129</line>
           <option name="timeStamp" value="14" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/dk/dtu/pay/paymentmanagement/Service.java</url>
-          <line>121</line>
+          <line>125</line>
           <option name="timeStamp" value="15" />
         </line-breakpoint>
       </breakpoints>

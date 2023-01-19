@@ -7,17 +7,21 @@ import dk.dtu.pay.utils.messaging.QueueNames;
 import dk.dtu.pay.utils.models.AccountId;
 import dk.dtu.pay.utils.models.TokenRequest;
 import dk.dtu.pay.utils.models.User;
+import io.cucumber.java.eo.Se;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @RequiredArgsConstructor
 public class Service {
 
     private final MessageQueue messageQueue;
     private User user = null;
+    private Logger logger = Logger.getLogger(Service.class.getName());
 
     public User register(AccountId accountId) {
         publishRegisterCustomerRequested(accountId);
@@ -36,6 +40,7 @@ public class Service {
     }
 
     private void publishRegisterCustomerRequested(AccountId accountId) {
+        logger.log(Level.INFO, "REGISTER_CUSTOMER_REQUESTED account id(" + accountId + ")");
         messageQueue.publish(QueueNames.REGISTER_CUSTOMER_REQUESTED, new Event(new Object[]{accountId}));
     }
 
@@ -47,17 +52,20 @@ public class Service {
                 completableFuture::complete);
 
         Event event = completableFuture.join();
-        user = event.getArgument(0, User.class);
+        logger.log(Level.INFO, "REGISTER_CUSTOMER_RETURNED event(" + event + ")");
+        User u = event.getArgument(0, User.class);
         String message = event.getArgument(1, String.class);
 
         if (channel != null)
             channel.close();
-        if (user == null)
+        if (u == null)
             throw new RuntimeException(message);
+        user = u;
         return user;
     }
 
     private void publishTokenRequested(int numOfTokens) {
+        logger.log(Level.INFO, "TOKENS_REQUESTED numOfTokens(" + numOfTokens + ")");
         messageQueue.publish(QueueNames.TOKENS_REQUESTED, new Event(new Object[]{new TokenRequest(user, numOfTokens)}));
     }
 
@@ -69,6 +77,7 @@ public class Service {
                 completableFuture::complete);
 
         Event event = completableFuture.join();
+        logger.log(Level.INFO, "TOKENS_RETURNED event(" + event + ")");
         List<String> tokens = event.getArgument(0, List.class);
         String message = event.getArgument(1, String.class);
 
