@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e5b01635-ccb1-4caa-b332-df6be20a56a3" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../customer/src/test/java/dk/dtu/pay/customer/CustomerSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/../customer/src/test/java/dk/dtu/pay/customer/CustomerSteps.java" afterDir="false" />
-    </list>
+    <list default="true" id="e5b01635-ccb1-4caa-b332-df6be20a56a3" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -95,7 +93,7 @@
       <workItem from="1673719996762" duration="1276000" />
       <workItem from="1673858932813" duration="931000" />
       <workItem from="1674113504775" duration="913000" />
-      <workItem from="1674116179900" duration="1897000" />
+      <workItem from="1674116179900" duration="2215000" />
     </task>
     <servers />
   </component>

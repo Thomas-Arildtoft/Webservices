@@ -79,7 +79,7 @@ public class InitiatePaymentSuccessSteps {
         long actualMerchantBalance = bankServiceUtils.getAccount(merchantAccountId).getBalance().longValue();
         String result = response.readEntity(String.class);
         assertNotNull(result);
-        assertEquals("Success", result);
+        assertEquals("Payment success", result);
         assertEquals(amount, previousCustomerBalance - actualCustomerBalance);
         assertEquals(amount, actualMerchantBalance - previousMerchantBalance);
     }
