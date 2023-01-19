@@ -53,13 +53,14 @@ public class Service {
 
         Event event = completableFuture.join();
         logger.log(Level.INFO, "REGISTER_CUSTOMER_RETURNED event(" + event + ")");
-        user = event.getArgument(0, User.class);
+        User u = event.getArgument(0, User.class);
         String message = event.getArgument(1, String.class);
 
         if (channel != null)
             channel.close();
-        if (user == null)
+        if (u == null)
             throw new RuntimeException(message);
+        user = u;
         return user;
     }
 

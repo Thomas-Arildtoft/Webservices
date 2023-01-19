@@ -4,17 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e5b01635-ccb1-4caa-b332-df6be20a56a3" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../account-management/src/main/java/dk/dtu/pay/accountmanagement/Repository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../account-management/src/main/java/dk/dtu/pay/accountmanagement/Repository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../account-management/src/main/java/dk/dtu/pay/accountmanagement/Service.java" beforeDir="false" afterPath="$PROJECT_DIR$/../account-management/src/main/java/dk/dtu/pay/accountmanagement/Service.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../customer/src/main/java/dk/dtu/pay/customer/Service.java" beforeDir="false" afterPath="$PROJECT_DIR$/../customer/src/main/java/dk/dtu/pay/customer/Service.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../end-to-end-tests/src/test/java/steps/InitiatePaymentSuccessSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/../end-to-end-tests/src/test/java/steps/InitiatePaymentSuccessSteps.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../merchant/src/main/java/dk/dtu/pay/merchant/Service.java" beforeDir="false" afterPath="$PROJECT_DIR$/../merchant/src/main/java/dk/dtu/pay/merchant/Service.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dk/dtu/pay/paymentmanagement/Service.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dk/dtu/pay/paymentmanagement/Service.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../token-management/src/main/java/dk/dtu/pay/tokenmanagement/Repository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../token-management/src/main/java/dk/dtu/pay/tokenmanagement/Repository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../token-management/src/main/java/dk/dtu/pay/tokenmanagement/Service.java" beforeDir="false" afterPath="$PROJECT_DIR$/../token-management/src/main/java/dk/dtu/pay/tokenmanagement/Service.java" afterDir="false" />
-    </list>
+    <list default="true" id="e5b01635-ccb1-4caa-b332-df6be20a56a3" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -103,7 +93,7 @@
       <workItem from="1673719996762" duration="1276000" />
       <workItem from="1673858932813" duration="931000" />
       <workItem from="1674113504775" duration="913000" />
-      <workItem from="1674116179900" duration="5694000" />
+      <workItem from="1674116179900" duration="6289000" />
     </task>
     <servers />
   </component>
