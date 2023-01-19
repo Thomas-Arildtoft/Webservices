@@ -118,8 +118,10 @@ public class Service {
                     merchant.getId(),
                     amount,
                     "Payment please");
+            System.out.println("Payment success");
             messageQueue.publish(QueueNames.INITIATE_PAYMENT_RETURNED, new Event(new Object[]{"Payment success"}));
         } catch (BankServiceException_Exception e) {
+            System.out.println("Payment failed");
             messageQueue.publish(QueueNames.INITIATE_PAYMENT_RETURNED, new Event(new Object[]{"Payment failed"}));
         }
     }

@@ -5,9 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e5b01635-ccb1-4caa-b332-df6be20a56a3" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dk/dtu/pay/paymentmanagement/Service.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dk/dtu/pay/paymentmanagement/Service.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../utils/src/main/java/dk/dtu/pay/utils/MessageQueueTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../utils/src/main/java/dk/dtu/pay/utils/MessageQueueTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,16 +36,16 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/Piotrek/Desktop/Masters/SD/Webservices/payment-management",
-    "nodejs_package_manager_path": "npm"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Piotrek/Desktop/Masters/SD/Webservices/payment-management&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Piotrek\Desktop\Masters\SD\Webservices\payment-management\src\main\java\dk\dtu\pay\paymentmanagement" />
@@ -97,7 +95,7 @@
       <workItem from="1673719996762" duration="1276000" />
       <workItem from="1673858932813" duration="931000" />
       <workItem from="1674113504775" duration="913000" />
-      <workItem from="1674116179900" duration="3727000" />
+      <workItem from="1674116179900" duration="4342000" />
     </task>
     <servers />
   </component>
@@ -125,27 +123,27 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/dk/dtu/pay/paymentmanagement/Service.java</url>
-          <line>83</line>
+          <line>82</line>
           <option name="timeStamp" value="8" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/dk/dtu/pay/paymentmanagement/Service.java</url>
-          <line>105</line>
+          <line>104</line>
           <option name="timeStamp" value="9" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/dk/dtu/pay/paymentmanagement/Service.java</url>
-          <line>101</line>
+          <line>100</line>
           <option name="timeStamp" value="10" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/dk/dtu/pay/paymentmanagement/Service.java</url>
-          <line>78</line>
+          <line>77</line>
           <option name="timeStamp" value="11" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/dk/dtu/pay/paymentmanagement/Service.java</url>
-          <line>124</line>
+          <line>125</line>
           <option name="timeStamp" value="14" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">

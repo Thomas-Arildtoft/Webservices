@@ -59,6 +59,7 @@ public class Service {
 
     private void publishInitiatePaymentRequest(InitiatePaymentDTO initiatePaymentDTO) {
         initiatePaymentDTO.setMerchantUser(user);
+        System.out.println("INITIATE_PAYMENT_REQUESTED");
         messageQueue.publish(QueueNames.INITIATE_PAYMENT_REQUESTED, new Event(new Object[]{ initiatePaymentDTO }));
     }
 
