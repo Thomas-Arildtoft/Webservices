@@ -19,42 +19,15 @@ import static org.junit.Assert.assertNotNull;
 
 public class MerchantSteps {
 
-    private Queue<Event> publishedEvents = new LinkedList<>();
-    private Service service = new Service(getMockedMessageQueue());
-    private String accountId;
-    private User user;
-
-
-    @Given(": Merchant has bank account id {word}")
-    public void givenCustomerSBankAccountId(String aId) {
-        accountId = aId;
+    @Given(": Set number to {int}")
+    public void setNumberTo(int arg0) {
     }
 
-    @When(": Register merchant at DTU Pay")
-    public void registerMerchantAtDTUPay() {
-        user = service.register(new AccountId(accountId));
+    @When(": Add {int} to number")
+    public void addToNumber(int arg0) {
     }
 
-    @Then(": User with role Merchant and bank account id {word} is returned")
-    public void userWithRoleCustomerAndBankAccountIdIsReturned(String accountId) {
-        assertNotNull(user);
-        assertEquals(accountId, user.getId());
+    @Then(": Result is {int}")
+    public void resultIs(int arg0) {
     }
-
-    private MessageQueue getMockedMessageQueue() {
-        return new MessageQueue() {
-
-            @Override
-            public void publish(String s, Event event) {
-                publishedEvents.add(event);
-            }
-
-            @Override
-            public Channel addHandler(String queueName, Consumer<Event> handler) {
-                handler.accept(publishedEvents.poll());
-                return null;
-            }
-        };
-    }
-
 }

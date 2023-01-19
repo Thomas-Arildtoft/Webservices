@@ -20,8 +20,8 @@ public class Service {
     private User user = null;
 
     public User register(AccountId accountId) {
-        publishRegisterCustomerRequested(accountId);
-        return addRegisterCustomerReturnedSubscriber();
+        publishRegisterMerchantRequested(accountId);
+        return addRegisterMerchantReturnedSubscriber();
     }
 
     public String initiatePayment(InitiatePaymentDTO initiatePaymentDTO) {
@@ -35,21 +35,25 @@ public class Service {
         messageQueue.publish(QueueNames.CLEAN_TOKEN_MANAGEMENT_REQUESTED, new Event(null));
     }
 
-    private void publishRegisterCustomerRequested(AccountId accountId) {
+    private void publishRegisterMerchantRequested(AccountId accountId) {
         messageQueue.publish(QueueNames.REGISTER_MERCHANT_REQUESTED, new Event(new Object[]{ accountId }));
     }
 
     @SneakyThrows
-    private User addRegisterCustomerReturnedSubscriber() {
-        CompletableFuture<User> completableFuture = new CompletableFuture<>();
+    private User addRegisterMerchantReturnedSubscriber() {
+        CompletableFuture<Event> completableFuture = new CompletableFuture<>();
         Channel channel = messageQueue.addHandler(
                 QueueNames.REGISTER_MERCHANT_RETURNED,
-                getAccountRegisteredConsumer(completableFuture));
-        user = completableFuture.join();
+                completableFuture::complete);
+
+        Event event = completableFuture.join();
+        user = event.getArgument(0, User.class);
+        String message = event.getArgument(1, String.class);
+
         if (channel != null)
             channel.close();
         if (user == null)
-            throw new RuntimeException("Registration Failed");
+            throw new RuntimeException(message);
         return user;
     }
 
@@ -67,13 +71,7 @@ public class Service {
         String message = completableFuture.join();
         if (channel != null)
             channel.close();
-        if (message == null)
-            throw new RuntimeException("Registration Failed");
         return message;
-    }
-
-    private Consumer<Event> getAccountRegisteredConsumer(CompletableFuture<User> completableFuture) {
-        return (event) -> completableFuture.complete(event.getArgument(0, User.class));
     }
 
     private Consumer<Event> getPaymentInitiatedConsumer(CompletableFuture<String> completableFuture) {

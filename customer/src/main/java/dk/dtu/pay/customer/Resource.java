@@ -2,7 +2,6 @@ package dk.dtu.pay.customer;
 
 import dk.dtu.pay.utils.messaging.RabbitMQQueue;
 import dk.dtu.pay.utils.models.AccountId;
-import dk.dtu.pay.utils.models.User;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -18,10 +17,9 @@ public class Resource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response register(AccountId accountId) {
         try {
-            User user = service.register(accountId);
-            return Response.ok().entity(user).build();
+            return Response.ok().entity(service.register(accountId)).build();
         } catch (Exception e) {
-            return Response.status(404).entity("Registration failed").build();
+            return Response.status(404).entity(e.getMessage()).build();
         }
     }
 
@@ -32,7 +30,7 @@ public class Resource {
         try {
             return Response.ok().entity(service.getTokens(numOfTokens)).build();
         } catch (Exception e) {
-            return Response.status(404).entity("Getting tokens failed").build();
+            return Response.status(404).entity(e.getMessage()).build();
         }
     }
 

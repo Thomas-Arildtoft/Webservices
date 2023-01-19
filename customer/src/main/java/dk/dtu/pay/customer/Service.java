@@ -12,8 +12,6 @@ import lombok.SneakyThrows;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.TimeUnit;
-import java.util.function.Consumer;
 
 @RequiredArgsConstructor
 public class Service {
@@ -22,13 +20,13 @@ public class Service {
     private User user = null;
 
     public User register(AccountId accountId) {
-        publishAccountIdToRegister(accountId);
-        return consumeRegisteredUser();
+        publishRegisterCustomerRequested(accountId);
+        return addRegisterCustomerReturnedSubscriber();
     }
 
     public List<String> getTokens(int numberOfTokens) {
         publishTokenRequested(numberOfTokens);
-        return consumerTokenRequested();
+        return addTokensReturnedSubscriber();
     }
 
     public void clean() {
@@ -37,48 +35,48 @@ public class Service {
         messageQueue.publish(QueueNames.CLEAN_TOKEN_MANAGEMENT_REQUESTED, new Event(null));
     }
 
-    private void publishAccountIdToRegister(AccountId accountId) {
-        messageQueue.publish(QueueNames.REGISTER_CUSTOMER_REQUESTED, new Event(new Object[]{ accountId }));
+    private void publishRegisterCustomerRequested(AccountId accountId) {
+        messageQueue.publish(QueueNames.REGISTER_CUSTOMER_REQUESTED, new Event(new Object[]{accountId}));
     }
 
     @SneakyThrows
-    private User consumeRegisteredUser() {
-        CompletableFuture<User> completableFuture = new CompletableFuture<>();
+    private User addRegisterCustomerReturnedSubscriber() {
+        CompletableFuture<Event> completableFuture = new CompletableFuture<>();
         Channel channel = messageQueue.addHandler(
                 QueueNames.REGISTER_CUSTOMER_RETURNED,
-                getRegisteredUserConsumer(completableFuture));
-        user = completableFuture.join();
+                completableFuture::complete);
+
+        Event event = completableFuture.join();
+        user = event.getArgument(0, User.class);
+        String message = event.getArgument(1, String.class);
+
         if (channel != null)
             channel.close();
         if (user == null)
-            throw new RuntimeException("Registration Failed");
+            throw new RuntimeException(message);
         return user;
     }
 
     private void publishTokenRequested(int numOfTokens) {
-        messageQueue.publish(QueueNames.TOKENS_REQUESTED, new Event(new Object[]{ new TokenRequest(user, numOfTokens)}));
+        messageQueue.publish(QueueNames.TOKENS_REQUESTED, new Event(new Object[]{new TokenRequest(user, numOfTokens)}));
     }
 
     @SneakyThrows
-    private List<String> consumerTokenRequested() {
-        CompletableFuture<List<String>> completableFuture = new CompletableFuture<>();
+    private List<String> addTokensReturnedSubscriber() {
+        CompletableFuture<Event> completableFuture = new CompletableFuture<>();
         Channel channel = messageQueue.addHandler(
                 QueueNames.TOKENS_RETURNED,
-                getTokenRequestedConsumer(completableFuture));
-        List<String> tokens = completableFuture.join();
+                completableFuture::complete);
+
+        Event event = completableFuture.join();
+        List<String> tokens = event.getArgument(0, List.class);
+        String message = event.getArgument(1, String.class);
+
         if (channel != null)
             channel.close();
         if (tokens == null)
-            throw new RuntimeException("Token retrieving failed");
+            throw new RuntimeException(message);
         return tokens;
-    }
-
-    private Consumer<Event> getRegisteredUserConsumer(CompletableFuture<User> completableFuture) {
-        return (event) -> completableFuture.complete(event.getArgument(0, User.class));
-    }
-
-    private Consumer<Event> getTokenRequestedConsumer(CompletableFuture<List<String>> completableFuture) {
-        return (event) -> completableFuture.complete(event.getArgument(0, List.class));
     }
 
 }

@@ -35,31 +35,35 @@ public class Service {
 
     private void addRegisterRequestedSubscriber(String subscribeQueue, String publishQueue, Role role) {
         messageQueue.addHandler(subscribeQueue,
-            (event) -> {
-                AccountId accountId = event.getArgument(0, AccountId.class);
-                User user = registerUser(accountId, role);
-                messageQueue.publish(publishQueue, new Event(new Object[]{user}));
-            });
+                (event) -> {
+                    try {
+                        AccountId accountId = event.getArgument(0, AccountId.class);
+                        User user = registerUser(accountId, role);
+                        messageQueue.publish(publishQueue, new Event(new Object[]{user, "Successfully registered"}));
+                    } catch (Exception e) {
+                        messageQueue.publish(publishQueue, new Event(new Object[]{null, e.getMessage()}));
+                    }
+                });
     }
 
     private void addAccountRequestedSubscriber() {
         messageQueue.addHandler(QueueNames.ACCOUNT_REQUESTED,
                 (event) -> {
-                    User user = event.getArgument(0, User.class);
-                    AccountId accountId = repository.getAccountId(user);
-                    messageQueue.publish(QueueNames.ACCOUNT_RETURNED, new Event(new Object[]{ accountId }));
+                    try {
+                        User user = event.getArgument(0, User.class);
+                        AccountId accountId = repository.getAccountId(user);
+                        messageQueue.publish(QueueNames.ACCOUNT_RETURNED, new Event(new Object[]{accountId, "User successfully found"}));
+                    } catch (Exception e) {
+                        messageQueue.publish(QueueNames.ACCOUNT_RETURNED, new Event(new Object[]{null, "User does not exist"}));
+                    }
                 });
     }
 
     private User registerUser(AccountId accountId, Role role) {
-        try {
-            validateAccountId(accountId);
-            User user = new User(UUID.randomUUID().toString(), role);
-            repository.addUser(user, accountId);
-            return user;
-        } catch (Exception e) {
-            return null;
-        }
+        validateAccountId(accountId);
+        User user = new User(UUID.randomUUID().toString(), role);
+        repository.addUser(user, accountId);
+        return user;
     }
 
     @SneakyThrows

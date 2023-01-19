@@ -22,7 +22,7 @@ public class Resource {
             User user = service.register(accountId);
             return Response.ok().entity(user).build();
         } catch (Exception e) {
-            return Response.status(404).entity("Registration failed").build();
+            return Response.status(404).entity(e.getMessage()).build();
         }
     }
 
