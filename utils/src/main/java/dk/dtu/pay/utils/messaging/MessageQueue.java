@@ -8,5 +8,6 @@ public interface MessageQueue {
 
     void publish(String queueName, Event message);
     Channel addHandler(String queueName, Consumer<Event> handler);
+    void publishandWait(String queueName, Event message);
 
 }

@@ -12,6 +12,10 @@ import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * @author Muhammad
+ */
+
 public class Service {
 
     private final static int MINIMUM_NUM_OF_TOKENS = 1;
