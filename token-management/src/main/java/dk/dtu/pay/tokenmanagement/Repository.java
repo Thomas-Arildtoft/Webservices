@@ -8,6 +8,10 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+
+/**
+ * @author Muhammad
+ */
 public class Repository {
 
     private Map<User, List<String>> userTokens = new HashMap<>();
@@ -30,11 +34,8 @@ public class Repository {
         return null;
     }
 
-    /***
-     *
-     *
-     *
-     *
-     * */
+    public boolean isEmpty() {
+        return userTokens.isEmpty();
+    }
 
 }
