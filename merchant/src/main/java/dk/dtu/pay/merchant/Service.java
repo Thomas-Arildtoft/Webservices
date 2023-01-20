@@ -28,6 +28,8 @@ public class Service {
     }
 
     public String initiatePayment(InitiatePaymentDTO initiatePaymentDTO) {
+        if (user == null)
+            return "No merchant registered";
         publishInitiatePaymentRequest(initiatePaymentDTO);
         return addInitiatePaymentReturnedSubscriber();
     }
