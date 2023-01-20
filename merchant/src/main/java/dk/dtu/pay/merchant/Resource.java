@@ -9,6 +9,10 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+/**
+ * @author Qiannan
+ */
+
 @Path("/merchants")
 public class Resource {
     private final Service service = new Service(RabbitMQQueue.getInstance());

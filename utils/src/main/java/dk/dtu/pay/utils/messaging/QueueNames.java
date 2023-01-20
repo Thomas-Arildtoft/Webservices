@@ -1,5 +1,9 @@
 package dk.dtu.pay.utils.messaging;
 
+/**
+ * @author Ali
+ */
+ 
 public class QueueNames {
 
     // Customer --- > Account management

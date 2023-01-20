@@ -23,6 +23,10 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+/**
+ * @author Piotr
+ */
+ 
 public class InitiatePaymentSuccessSteps {
 
     private final CustomerRestClient customerRestClient = new CustomerRestClient();

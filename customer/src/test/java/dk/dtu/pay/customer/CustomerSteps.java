@@ -16,6 +16,10 @@ import java.util.function.Consumer;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+/**
+ * @author Thomas
+ */
+ 
 public class CustomerSteps {
 
     @Given(": Set number to {int}")

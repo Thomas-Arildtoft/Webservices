@@ -4,6 +4,10 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
+/**
+ * @author Salim
+ */
+ 
 public class PaymentManagementSteps {
     @Given(": Set number to {int}")
     public void setNumberTo(int arg0) {

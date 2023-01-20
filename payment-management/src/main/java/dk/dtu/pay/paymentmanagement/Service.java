@@ -17,6 +17,10 @@ import java.util.concurrent.CompletableFuture;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * @author Salim
+ */
+
 public class Service {
 
     private final MessageQueue messageQueue;

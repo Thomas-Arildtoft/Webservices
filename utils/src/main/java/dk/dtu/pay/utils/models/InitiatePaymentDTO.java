@@ -7,6 +7,10 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 
+/**
+ * @author Qiannan
+ */
+ 
 @XmlRootElement
 @Data
 @NoArgsConstructor

@@ -7,6 +7,10 @@ import jakarta.ws.rs.client.Entity;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
+/**
+ * @author Piotr
+ */
+ 
 public class CustomerRestClient {
 
     private static final String BASE_URL = "http://localhost:8083/customers";

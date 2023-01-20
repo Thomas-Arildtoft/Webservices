@@ -6,6 +6,10 @@ import lombok.SneakyThrows;
 
 import java.math.BigDecimal;
 
+/**
+ * @author Piotr
+ */
+ 
 public class BankServiceUtils {
 
     private BankService bankService = new BankServiceService().getBankServicePort();

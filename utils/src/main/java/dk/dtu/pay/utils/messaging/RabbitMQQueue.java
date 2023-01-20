@@ -10,6 +10,10 @@ import lombok.SneakyThrows;
 import java.nio.charset.StandardCharsets;
 import java.util.function.Consumer;
 
+/**
+ * @author Ali
+ */
+ 
 public class RabbitMQQueue implements MessageQueue {
     /***
      *

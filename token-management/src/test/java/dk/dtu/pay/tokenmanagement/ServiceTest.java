@@ -12,6 +12,10 @@ import dk.dtu.pay.utils.models.*;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * @author Muhammad
+ */
+ 
 public class ServiceTest {
     private Service service;
     private MessageQueue messageQueue;

@@ -3,6 +3,10 @@ package dk.dtu.pay.accountmanagement;
 import dk.dtu.pay.utils.models.AccountId;
 import dk.dtu.pay.utils.models.User;
 
+/**
+ * @author Ali
+ */
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

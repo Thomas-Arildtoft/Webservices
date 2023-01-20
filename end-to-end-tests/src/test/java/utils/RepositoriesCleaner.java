@@ -1,5 +1,9 @@
 package utils;
 
+/**
+ * @author Piotr
+ */
+ 
 public class RepositoriesCleaner {
 
     private CustomerRestClient customerRestClient = new CustomerRestClient();
