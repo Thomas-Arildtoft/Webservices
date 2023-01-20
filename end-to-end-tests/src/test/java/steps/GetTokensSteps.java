@@ -4,7 +4,6 @@ import dk.dtu.pay.utils.models.AccountId;
 import dk.dtu.pay.utils.models.Role;
 import dk.dtu.pay.utils.models.User;
 import io.cucumber.java.After;
-import io.cucumber.java.Before;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -24,7 +23,7 @@ import static org.junit.Assert.*;
  * @author Piotr
  */
 
-public class GetTokensSuccessSteps {
+public class GetTokensSteps {
 
     private final CustomerRestClient customerRestClient = new CustomerRestClient();
     private final BankServiceUtils bankServiceUtils = new BankServiceUtils();

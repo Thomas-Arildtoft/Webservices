@@ -4,7 +4,6 @@ import dk.dtu.pay.utils.models.AccountId;
 import dk.dtu.pay.utils.models.InitiatePaymentDTO;
 import dk.dtu.pay.utils.models.Role;
 import dk.dtu.pay.utils.models.User;
-import dtu.ws.fastmoney.Account;
 import io.cucumber.java.After;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
@@ -27,7 +26,7 @@ import static org.junit.Assert.assertNotNull;
  * @author Piotr
  */
  
-public class InitiatePaymentSuccessSteps {
+public class InitiatePaymentSteps {
 
     private final CustomerRestClient customerRestClient = new CustomerRestClient();
     private final MerchantRestClient merchantRestClient = new MerchantRestClient();
@@ -73,14 +72,29 @@ public class InitiatePaymentSuccessSteps {
         assertNotNull(merchantUser.getId());
     }
 
-
-    @When(": Payment is of {int} kr is initiated")
+    @Given(": Customer is registered")
+    public void customerIsRegistered() {
+        User customerUser = customerRestClient.register(customerAccountId).readEntity(User.class);
+        assertNotNull(customerUser);
+        assertEquals(Role.CUSTOMER, customerUser.getRole());
+        assertNotNull(customerUser.getId());
+    }
+    
+    @When(": Payment of {int} kr is initiated")
     public void paymentIsOfKrIsInitiated(int amount) {
         previousCustomerBalance = bankServiceUtils.getAccount(customerAccountId).getBalance().longValue();
         previousMerchantBalance = bankServiceUtils.getAccount(merchantAccountId).getBalance().longValue();
         String customerToken = customerRestClient.getTokens(1)
                 .readEntity(new GenericType<List<String>>(){})
                 .get(0);
+        response = merchantRestClient.initiatePayment(new InitiatePaymentDTO(null, customerToken, BigDecimal.valueOf(amount)));
+    }
+
+    @When(": Payment with wrong token of {int} kr is initiated")
+    public void paymentWithWrongTokenOfKrIsInitiated(int amount) {
+        previousCustomerBalance = bankServiceUtils.getAccount(customerAccountId).getBalance().longValue();
+        previousMerchantBalance = bankServiceUtils.getAccount(merchantAccountId).getBalance().longValue();
+        String customerToken = "NotExistingToken";
         response = merchantRestClient.initiatePayment(new InitiatePaymentDTO(null, customerToken, BigDecimal.valueOf(amount)));
     }
 
@@ -93,5 +107,11 @@ public class InitiatePaymentSuccessSteps {
         assertEquals("Payment success", result);
         assertEquals(amount, previousCustomerBalance - actualCustomerBalance);
         assertEquals(amount, actualMerchantBalance - previousMerchantBalance);
+    }
+
+    @Then(": Message {string} is returned")
+    public void messageIsReturned(String message) {
+        String result = response.readEntity(String.class);
+        assertEquals(message, result);
     }
 }
