@@ -65,11 +65,6 @@ public class RabbitMQQueue implements MessageQueue {
         return channel;
     }
 
-    @Override
-    public void publishandWait(String queueName, Event message) {
-
-    }
-
     @SneakyThrows
     private Connection getConnection() {
         ConnectionFactory factory = new ConnectionFactory();

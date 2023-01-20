@@ -79,7 +79,7 @@ public class InitiatePaymentSteps {
         assertEquals(Role.CUSTOMER, customerUser.getRole());
         assertNotNull(customerUser.getId());
     }
-    
+
     @When(": Payment of {int} kr is initiated")
     public void paymentIsOfKrIsInitiated(int amount) {
         previousCustomerBalance = bankServiceUtils.getAccount(customerAccountId).getBalance().longValue();
