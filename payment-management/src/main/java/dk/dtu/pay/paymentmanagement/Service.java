@@ -23,6 +23,17 @@ import java.util.logging.Logger;
 
 public class Service {
 
+    /**
+     *WORKFLOW
+     * 1. Listen for INITIATE_PAYMENT_REQUESTED
+     * 2. Request accountManagement for merchantAccountId - requestMerchantAccountId(initiatePaymentDTO)
+     * 3. Request tokenManagement to retrieve customer User out of the token - requestCustomerUser(InitiatePaymentDTO initiatePaymentDTO, AccountId merchantAccountId)
+     * 4. Request accountManagement for customerAccountId - requestMerchantAccountId(InitiatePaymentDTO initiatePaymentDTO, AccountId merchantAccountId, User customerUser)
+     * 5. Having all necessary info realise payment - realisePayment(AccountId customer, AccountId merchant, BigDecimal amount)
+     * 6. Return message to INITIATE_PAYMENT_RETURNED
+     *
+     *  */
+
     private final MessageQueue messageQueue;
     private BankService bankService = new BankServiceService().getBankServicePort();
     private Logger logger = Logger.getLogger(Service.class.getName());
