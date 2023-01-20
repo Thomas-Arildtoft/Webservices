@@ -12,6 +12,10 @@ import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * @author Muhammad
+ */
+
 public class Service {
 
     private final static int MINIMUM_NUM_OF_TOKENS = 1;
@@ -49,6 +53,14 @@ public class Service {
                 });
     }
 
+    /**
+     * This method adds a subscriber to the message queue to handle TOKENS_REQUESTED events.
+     * When a TOKENS_REQUESTED event is received, the method retrieves the number of tokens requested from the event's
+     * TokenRequest object and checks if it is within the allowed range of [1,6]. If the number of tokens is not within this range,
+     * a TOKENS_RETURNED event is published with a null token list and an error message indicating that the request was invalid.
+     * If the number of tokens is valid, a list of tokens is generated and a TOKENS_RETURNED event is published with the list of tokens and a success message
+     * @return
+     */
     public void addUserFromTokenRequestedSubscriber() {
         messageQueue.addHandler(QueueNames.USER_FROM_TOKEN_REQUESTED,
                 (event) -> {
