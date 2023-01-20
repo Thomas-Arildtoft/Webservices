@@ -54,6 +54,11 @@ public class RegisterCustomerSteps {
         assertNotNull(user.getId());
     }
 
+    @Given("Not existing customer account Id")
+    public void notExistingCustomerAccountId() {
+        customerAccountId = new AccountId("AccountIdThatDoesNotExist");
+    }
+
     @When("the customer requests for registration")
     public void theCustomerRequestsForRegistration() {
         response = customerRestClient.register(customerAccountId);
@@ -72,5 +77,5 @@ public class RegisterCustomerSteps {
         String returnedMessage = response.readEntity(String.class);
         assertEquals(message, returnedMessage);
     }
-    
+
 }

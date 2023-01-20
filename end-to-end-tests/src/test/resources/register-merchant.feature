@@ -12,3 +12,8 @@ Feature: Register merchant scenarios
     Given Already registered merchant
     When the merchant requests for registration
     Then merchant registration finishes with failure and the following message is returned "Account already used"
+
+  Scenario: Register account does not exist
+    Given Not existing merchant account Id
+    When the merchant requests for registration
+    Then merchant registration finishes with failure and the following message is returned "Account does not exist"

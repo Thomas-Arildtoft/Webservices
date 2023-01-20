@@ -55,6 +55,11 @@ public class RegisterMerchantSteps {
         assertNotNull(user.getId());
     }
 
+    @Given("Not existing merchant account Id")
+    public void notExistingMerchantAccountId() {
+        merchantAccountId = new AccountId("AccountIdThatDoesNotExist");
+    }
+
     @When("the merchant requests for registration")
     public void theCustomerRequestsForRegistration() {
         response = merchantRestClient.register(merchantAccountId);
@@ -74,4 +79,5 @@ public class RegisterMerchantSteps {
         String returnedMessage = response.readEntity(String.class);
         assertEquals(message, returnedMessage);
     }
+
 }

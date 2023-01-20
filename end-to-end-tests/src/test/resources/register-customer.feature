@@ -12,3 +12,8 @@ Feature: Register customer scenarios
     Given Already registered customer
     When the customer requests for registration
     Then customer registration finishes with failure and the following message is returned "Account already used"
+
+  Scenario: Register account does not exist
+    Given Not existing customer account Id
+    When the customer requests for registration
+    Then customer registration finishes with failure and the following message is returned "Account does not exist"
