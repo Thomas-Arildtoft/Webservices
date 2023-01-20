@@ -14,14 +14,13 @@ import utils.RepositoriesCleaner;
 
 import java.math.BigDecimal;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 /**
  * @author Piotr
  */
  
-public class RegisterCustomerSuccessSteps {
+public class RegisterCustomerSteps {
 
     private final CustomerRestClient customerRestClient = new CustomerRestClient();
     private final BankServiceUtils bankServiceUtils = new BankServiceUtils();
@@ -47,6 +46,14 @@ public class RegisterCustomerSuccessSteps {
     public void customerSAccountId() {
     }
 
+    @Given("Already registered customer")
+    public void alreadyRegisteredCustomer() {
+        User user = customerRestClient.register(customerAccountId).readEntity(User.class);
+        assertNotNull(user);
+        assertEquals(Role.CUSTOMER, user.getRole());
+        assertNotNull(user.getId());
+    }
+
     @When("the customer requests for registration")
     public void theCustomerRequestsForRegistration() {
         response = customerRestClient.register(customerAccountId);
@@ -60,4 +67,10 @@ public class RegisterCustomerSuccessSteps {
         assertNotNull(user.getId());
     }
 
+    @Then("customer registration finishes with failure and the following message is returned {string}")
+    public void theRegistrationFinishesWithFailureAndTheFollowingMessageIsReturned(String message) {
+        String returnedMessage = response.readEntity(String.class);
+        assertEquals(message, returnedMessage);
+    }
+    
 }

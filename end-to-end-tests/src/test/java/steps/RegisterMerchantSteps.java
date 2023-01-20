@@ -4,7 +4,6 @@ import dk.dtu.pay.utils.models.AccountId;
 import dk.dtu.pay.utils.models.Role;
 import dk.dtu.pay.utils.models.User;
 import io.cucumber.java.After;
-import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -22,7 +21,7 @@ import static org.junit.Assert.assertNotNull;
  * @author Piotr
  */
  
-public class RegisterMerchantSuccessSteps {
+public class RegisterMerchantSteps {
 
     private final MerchantRestClient merchantRestClient = new MerchantRestClient();
     private final BankServiceUtils bankServiceUtils = new BankServiceUtils();
@@ -48,6 +47,14 @@ public class RegisterMerchantSuccessSteps {
     public void customerSAccountId() {
     }
 
+    @Given("Already registered merchant")
+    public void alreadyRegisteredMerchant() {
+        User user = merchantRestClient.register(merchantAccountId).readEntity(User.class);
+        assertNotNull(user);
+        assertEquals(Role.MERCHANT, user.getRole());
+        assertNotNull(user.getId());
+    }
+
     @When("the merchant requests for registration")
     public void theCustomerRequestsForRegistration() {
         response = merchantRestClient.register(merchantAccountId);
@@ -61,4 +68,10 @@ public class RegisterMerchantSuccessSteps {
         assertNotNull(user.getId());
     }
 
+
+    @Then("merchant registration finishes with failure and the following message is returned {string}")
+    public void merchantRegistrationFinishesWithFailureAndTheFollowingMessageIsReturned(String message) {
+        String returnedMessage = response.readEntity(String.class);
+        assertEquals(message, returnedMessage);
+    }
 }
