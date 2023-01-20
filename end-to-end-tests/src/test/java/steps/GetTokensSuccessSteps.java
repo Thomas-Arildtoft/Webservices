@@ -18,8 +18,7 @@ import utils.RepositoriesCleaner;
 import java.math.BigDecimal;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 /**
  * @author Piotr
@@ -65,6 +64,12 @@ public class GetTokensSuccessSteps {
         List<String> tokens = response.readEntity(new GenericType<List<String>>(){});
         assertNotNull(tokens);
         assertEquals(tokens.size(), numberOfTokens);
+    }
+
+    @Then(": Receive failure message that starts with {string}")
+    public void receiveFailureMessageThatStartsWith(String message) {
+        String resultMessage = response.readEntity(String.class);
+        assertTrue(resultMessage.contains(message));
     }
 
 }
